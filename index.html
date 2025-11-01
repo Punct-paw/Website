@@ -1,183 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="mediaqueries.css" />
+<!DOCTYPE html> <!-- Declares the document type as HTML5 for proper rendering in browsers. -->
+<html lang="en"> <!-- Root element of the HTML page, with language set to English for accessibility. -->
+  <head> <!-- Contains meta information about the document. -->
+    <meta charset="UTF-8" /> <!-- Specifies the character encoding for the document (UTF-8 supports most characters). -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Ensures the page is responsive on mobile devices by setting viewport width to device width and initial zoom to 1. -->
+    <title>Pawan Bhattarai</title> <!-- Sets the title of the page, displayed in the browser tab. -->
+    <link rel="stylesheet" href="style.css" /> <!-- Links to the main external CSS stylesheet for styling the page. -->
+    <link rel="stylesheet" href="mediaqueries.css" /> <!-- Links to additional CSS for media queries, handling responsive design for different screen sizes. -->
+    <!-- Inline style for project image consistency and canvas: These styles ensure images fit their containers properly and position the canvas background correctly. -->
     <style>
       .project-img,
       .project-card img {
-        width: 100%;
-        height: 300px;
-        object-fit: cover;
-        border-radius: 6px;
+        width: 100%; /* Makes images full width of their container. */
+        height: 300px; /* Fixed height for consistency across projects. */
+        object-fit: cover; /* Ensures the image covers the area without distortion. */
+        border-radius: 6px; /* Rounds the corners of images for a softer look. */
       }
-
       #profile {
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-        padding: 3rem 2rem;
+        position: relative; /* Allows absolute positioning of child elements (like canvas) relative to this section. */
+        overflow: hidden; /* Prevents any overflow from the canvas or other elements. */
       }
-
       #background-canvas {
-        position: absolute;
+        position: absolute; /* Positions the canvas absolutely within the profile section. */
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
+        width: 100%; /* Full width of the parent. */
+        height: 100%; /* Full height of the parent. */
+        z-index: -1; /* Places the canvas behind other content. */
       }
-
       .section__pic-container,
       .section__text {
-        position: relative;
-        z-index: 1;
-      }
-
-      /* ✅ Mobile Responsiveness Fix */
-      @media (max-width: 768px) {
-        #profile {
-          flex-direction: column;
-          padding: 2rem 1rem;
-          text-align: center;
-        }
-
-        .section__pic-container {
-          margin-bottom: 1.5rem;
-        }
-
-        .section__text h1.title {
-          font-size: 1.8rem;
-        }
-
-        .section__text__p1,
-        .section__text__p2 {
-          font-size: 1rem;
-        }
+        position: relative; /* Ensures these elements are above the canvas in the stacking order. */
+        z-index: 1; /* Higher z-index than canvas to appear on top. */
       }
     </style>
   </head>
-  <body>
+  <body> <!-- Contains all the visible content of the page. -->
+    <!-- Desktop Navigation: Visible on larger screens, provides links to different sections of the page. -->
     <nav id="desktop-nav">
-      <div class="logo">Pawan Bhattarai</div>
+      <div class="logo">Pawan Bhattarai</div> <!-- Logo or name displayed on the left of the nav. -->
       <div>
-        <ul class="nav-links">
-          <li><a href="#profile">Profile</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
+        <ul class="nav-links"> <!-- Unordered list of navigation links. -->
+          <li><a href="#profile">Profile</a></li> <!-- Link to the Profile section. -->
+          <li><a href="#projects">Projects</a></li> <!-- Link to the Projects section. -->
+          <li><a href="#publications">Publications</a></li> <!-- Link to the Publications section. -->
+          <li><a href="#blogs">Blogs</a></li> <!-- Link to the Blogs section. -->
+          <li><a href="#discoveries">Discoveries</a></li> <!-- Link to the Discoveries section. -->
+          <li><a href="#awards">Awards</a></li> <!-- New link to the Awards section. -->
+          <li><a href="#contact">Contact</a></li> <!-- Link to the Contact section. -->
         </ul>
       </div>
     </nav>
+    <!-- Hamburger Navigation: For mobile devices, toggles a menu on click. -->
     <nav id="hamburger-nav">
-      <div class="logo">Pawan Bhattarai</div>
+      <div class="logo">Pawan Bhattarai</div> <!-- Same logo as desktop. -->
       <div class="hamburger-menu">
-        <div class="hamburger-icon" onclick="toggleMenu()">
-          <span></span>
+        <div class="hamburger-icon" onclick="toggleMenu()"> <!-- Icon for menu toggle, calls JavaScript function. -->
+          <span></span> <!-- Lines that form the hamburger icon. -->
           <span></span>
           <span></span>
         </div>
-        <div class="menu-links">
+        <div class="menu-links"> <!-- Links that appear when menu is toggled. -->
           <li><a href="#profile" onclick="toggleMenu()">Profile</a></li>
-          <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
           <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+          <li><a href="#publications" onclick="toggleMenu()">Publications</a></li>
+          <li><a href="#blogs" onclick="toggleMenu()">Blogs</a></li>
+          <li><a href="#discoveries" onclick="toggleMenu()">Discoveries</a></li>
+          <li><a href="#awards" onclick="toggleMenu()">Awards</a></li> <!-- New mobile link to Awards. -->
           <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
         </div>
       </div>
     </nav>
-    <section id="profile" style="background-image: url('./assets/Backgroun.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-      <canvas id="background-canvas"></canvas>
-      <div class="section__pic-container">
+    <!-- Profile Section: Hero section with background image, canvas animation, profile picture, bio, social links, education, and career. -->
+    <section id="profile" style="background-image: url('./assets/Backgroun.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;"> <!-- Inline styles for background image. -->
+      <canvas id="background-canvas"></canvas> <!-- Canvas for bouncing balls animation, positioned behind content. -->
+      <div class="section__pic-container"> <!-- Container for the profile picture. -->
         <img
           src="./assets/PROFILE_PIC.jpg" 
           alt="Pawan Bhattarai profile picture" 
-          style="width: 250px; height: 250px; object-fit: cover; border-radius: 50%; border: 4px solid #333;" 
+          style="width: 250px; height: 250px; object-fit: cover; border-radius: 50%; border: 4px solid #333;" <!-- Circular profile image with border. -->
         />
       </div>
-      <div class="section__text">
-        <p class="section__text__p1">ABOUT ME</p>
-        <h1 class="title">Pawan Bhattarai</h1>
-        <p class="section__text__p2">Structural Engineer / PolyMath</p>
-        <div class="btn-container">
-          <button class="btn btn-color-2" onclick="window.open('./assets/Resume.pdf')">Download CV</button>
-          <button class="btn btn-color-1" onclick="location.href='./#contact'">Contact Info</button>
+      <div class="section__text"> <!-- Text content about the person. -->
+        <p class="section__text__p1">ABOUT ME</p> <!-- Subtitle. -->
+        <h1 class="title">Pawan Bhattarai</h1> <!-- Main name heading. -->
+        <p class="section__text__p2">Structural Engineer / PolyMath</p> <!-- Job title/description. -->
+        <div class="btn-container"> <!-- Buttons for CV download and contact. -->
+          <button class="btn btn-color-2" onclick="window.open('./assets/Resume.pdf')">Download CV</button> <!-- Opens CV in new tab. -->
+          <button class="btn btn-color-1" onclick="location.href='./#contact'">Contact Info</button> <!-- Scrolls to contact section. -->
         </div>
-        <div id="socials-container">
-          <img src="./assets/linkedin.png" alt="My LinkedIn profile" class="icon" onclick="location.href='http://www.linkedin.com/in/pawanbhattarai2'" />
-          <img src="./assets/github.png" alt="My Github profile" class="icon" onclick="location.href='https://github.com/Punct-paw'" />
-          <img src="./assets/researchgate.png" alt="My ResearchGate profile" class="icon" onclick="location.href='https://www.researchgate.net/profile/Pawan-Bhattarai'" />
-          <img src="./assets/googlescholar.png" alt="My Google Scholar profile" class="icon" onclick="location.href='https://scholar.google.com/citations?user=jjBaPnYAAAAJ&hl=en'" />
-        </div>
-      </div>
-    </section>
-    <section id="about">
-      <p class="section__text__p1">Get To Know More</p>
-      <h1 class="title">About Me</h1>
-      <div class="section-container">
-        <div class="section__pic-container">
-          <img
-            src="./assets/PROFILE-PIC2.jpg"
-            alt="Profile picture"
-            class="about-pic"
-          />
-        </div>
-        <div class="about-details-container">
-          <div class="about-containers">
-            <div class="details-container">
-              <img
-                src="./assets/experience.png"
-                alt="Experience icon"
-                class="icon"
-              />
-              <h3>Experience</h3>
-              <p>9+ years <br />Structural Engineering</p>
-            </div>
-            <div class="details-container">
-              <img
-                src="./assets/education.png"
-                alt="Education icon"
-                class="icon"
-              />
-              <h3>Education</h3>
-              <p>B.Sc. Bachelors Degree in Civil Engineering from Pulchowk Campus (81.96%)<br />M.Sc. Masters Degree in Civil Engineering from Idaho State University (4.00 GPA)</p>
-            </div>
-          </div>
-          <div class="text-container">
-            <p>
-              Passionate about mathematics, programming, and structural engineering — exploring the intersection of analytical thinking and practical design to build efficient, innovative solutions
-            </p>
-          </div>
+        <div id="socials-container"> <!-- Social media icons with links. -->
+          <img src="./assets/linkedin.png" alt="My LinkedIn profile" class="icon" onclick="location.href='http://www.linkedin.com/in/pawanbhattarai2'" /> <!-- LinkedIn link. -->
+          <img src="./assets/github.png" alt="My Github profile" class="icon" onclick="location.href='https://github.com/Punct-paw'" /> <!-- GitHub link. -->
+          <img src="./assets/researchgate.png" alt="My ResearchGate profile" class="icon" onclick="location.href='https://www.researchgate.net/profile/Pawan-Bhattarai'" /> <!-- ResearchGate link. -->
+          <img src="./assets/googlescholar.png" alt="My Google Scholar profile" class="icon" onclick="location.href='https://scholar.google.com/citations?user=00VI148AAAAJ&hl=en&authuser=5'" /> <!-- Google Scholar link. -->
         </div>
       </div>
-      <img
-        src="./assets/arrow.png"
-        alt="Arrow icon"
-        class="icon arrow"
-        onclick="location.href='./#experience'"
-      />
-    </section>
-    <section id="experience">
-      <p class="section__text__p1">Explore My</p>
-      <h1 class="title">Experience</h1>
-      <div class="experience-details-container">
-        <div class="about-containers">
-          <div class="details-container scroll-container">
-            <h2 class="experience-sub-title">Careers</h2>
-            <div class="article-container">
-              <article>
-                <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+      <!-- Integrated Education and Career into Profile, displayed side by side. -->
+      <div class="about-details-container"> <!-- Container for education, career, and passion text. -->
+        <div class="about-containers"> <!-- Flex container for side-by-side layout. -->
+          <div class="details-container scroll-container"> <!-- Education details box. -->
+            <img
+              src="./assets/education.png"
+              alt="Education icon"
+              class="icon" <!-- Icon for education. -->
+            />
+            <h3>Education</h3> <!-- Heading for education. -->
+            <p>B.Sc. Bachelors Degree in Civil Engineering from Pulchowk Campus (81.96%)<br />M.Sc. Masters Degree in Civil Engineering from Idaho State University (4.00 GPA)</p> <!-- Education details. -->
+          </div>
+          <div class="details-container scroll-container"> <!-- Career details box with scroll if needed. -->
+            <img src="./assets/experience.png" alt="Experience icon" class="icon" /> <!-- Icon for experience. -->
+            <h3>Career</h3> <!-- Heading for career. -->
+            <div class="article-container"> <!-- Container for career articles. -->
+              <article> <!-- Individual career entry. -->
+                <img src="./assets/checkmark.png" alt="Experience icon" class="icon" /> <!-- Checkmark icon. -->
                 <div>
-                  <h3>Bridge/Structural Engineer (CURRENT-JAN 2025)</h3>
-                  <p>ArDOT (Arkansas Department of Transportation)</p>
-                  <p>As a Bridge Engineer at ArDOT, I am working on a variety of projects encompassing the complete design of bridges, retaining walls, and some miscellaneous structural projects. I am also utilizing Python, VBA, and LaTeX coding to automate design works.</p>
+                  <h3>Bridge/Structural Engineer (CURRENT-JAN 2025)</h3> <!-- Job title and duration. -->
+                  <p>ArDOT (Arkansas Department of Transportation)</p> <!-- Organization. -->
+                  <p>As a Bridge Engineer at ArDOT, I am working on a variety of projects encompassing the complete design of bridges, retaining walls, and some miscellaneous structural projects. I am also utilizing Python, VBA, and LaTeX coding to automate design works.</p> <!-- Description. -->
                 </div>
               </article>
               <article>
@@ -185,208 +124,315 @@
                 <div>
                   <h3>Graduate Teaching Assistant (DEC 2024-AUG 2023)</h3>
                   <p>Idaho State University</p>
-                  <p>Tutoring courses such as Engineering Graphics (AutoCAD), Surveying, and Statics. Working on a project related to using CFRP and GFRP in slab-wall connections. Performed compression tests to carry out the stress-strain analysis of sustainable materials in concrete using ASCE and ACI codes.</p>
+                  <p>Tutored courses such as Engineering Graphics (AutoCAD), Surveying, and Statics. Worked on a project involving the use of CFRP and GFRP in slab-wall connections. Conducted compression tests and performed stress-strain analysis of sustainable concrete materials in accordance with ASCE and ACI codes.</p>
                 </div>
               </article>
               <article>
                 <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
                 <div>
-                  <h3>Civil Engineer/Project Manager (AUG 2023-DEC 2022)</h3>
+                  <h3>Civil Engineer (AUG 2023-DEC 2022)</h3>
                   <p>Kathmandu Metropolitan City Office, Nepal</p>
-                  <p>Worked on building and bridge projects, creating drawings and specifications, conducting estimates, performing calculations, writing reports, and frequently visiting sites. Utilized software including AutoCAD, ANSYS, Staad Pro, Revit, Civil 3D, etc. Worked closely with different authorities including governmental, private sectors, and local people.</p>
+                  <p>Worked on building and bridge projects, creating drawings and specifications, conducting estimates, performing calculations, writing reports, and frequently visiting sites. Worked closely with different authorities including governmental, private sectors, and local people.</p>
                 </div>
               </article>
             </div>
           </div>
-          <div class="details-container scroll-container">
-            <h2 class="experience-sub-title">Publications</h2>
-            <div class="article-container">
-              <article>
-                <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+        </div>
+        <div class="text-container"> <!-- Container for passion/description text. -->
+          <p>
+            Passionate about mathematics, programming, and structural engineering — exploring the intersection of analytical thinking and practical design to build efficient, innovative infrastructure.
+          </p> <!-- Personal passion statement. -->
+        </div>
+      </div>
+      <img
+        src="./assets/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#publications'" <!-- Arrow icon to scroll to next section (Publications). -->
+      />
+    </section>
+    <!-- Publications Section: Lists academic publications with links where available. Each entry includes a checkmark icon, citation, and a view button linking to the source. -->
+    <section id="publications">
+      <p class="section__text__p1">Explore My</p> <!-- Subtitle. -->
+      <h1 class="title">Publications</h1> <!-- Main heading. -->
+      <div class="experience-details-container"> <!-- Container for publication details. -->
+        <div class="about-containers"> <!-- Flex container for layout. -->
+          <div class="details-container scroll-container"> <!-- Scrollable container for publications. -->
+            <div class="article-container"> <!-- Container for individual publication articles. -->
+              <article> <!-- First publication entry. -->
+                <img src="./assets/checkmark.png" alt="Experience icon" class="icon" /> <!-- Checkmark icon. -->
                 <div>
-                  <p>Bhattarai, P., Cantrell, J., Wakjira, T. G., & Mashal, M. (2025). Stress-Strain Behavior of Confined Green Concrete. In IABSE Symposium: Environmentally Friendly Technologies and Structures: Focusing on Sustainable Approaches, Tokyo, Japan, 18-21 May 2025 (pp. 244-250).</p>
+                  <p>Bhattarai, P., Cantrell, J., Wakjira, T. G., & Mashal, M. (2025). Stress-Strain Behavior of Confined Green Concrete. In IABSE Symposium: Environmentally Friendly Technologies and Structures: Focusing on Sustainable Approaches, Tokyo, Japan, 18-21 May 2025 (pp. 244-250).</p> <!-- Citation text. -->
+                  <div class="btn-container"> <!-- Button container for view link. -->
+                    <button class="btn btn-color-2" onclick="location.href='https://www.researchgate.net/publication/392500660_Stress-Strain_Behavior_of_Confined_Green_Concrete'">View</button> <!-- Button to open publication link. -->
+                  </div>
                 </div>
               </article>
-              <article>
+              <article> <!-- Second publication entry. -->
                 <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
                 <div>
                   <p>Rajbhandari, S., Bhattarai, P., Sharma, K., Wakjira, T. G., Mashal, M., & Cantrell, J. (2025). Sustainable Concrete with Dairy Wastewater: A State-of-the-Art Review. In IABSE Symposium: Environmentally Friendly Technologies and Structures: Focusing on Sustainable Approaches, Tokyo, Japan, 18-21 May 2025 (pp. 265-272).</p>
+                  <div class="btn-container">
+                    <button class="btn btn-color-2" onclick="location.href='https://structurae.net/en/literature/conference-paper/sustainable-concrete-with-dairy-wastewater-a-state-of-the-art-review'">View</button>
+                  </div>
                 </div>
               </article>
-              <article>
+              <article> <!-- Third publication entry (thesis). -->
                 <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
                 <div>
                   <p>Bhattarai, P. (2024). Stress-Strain Behavior of Confined Green Concrete With Precipitated Calcium Carbonate and Upcycled Concrete Aggregate (Master's thesis, Idaho State University).</p>
+                  <div class="btn-container">
+                    <button class="btn btn-color-2" onclick="location.href='https://www.proquest.com/openview/8097216abbd470de57fa44498e2921ee/1?pq-origsite=gscholar&cbl=18750&diss=y'">View</button> <!-- Using the ProQuest link from original code. -->
+                  </div>
                 </div>
               </article>
-              <article>
+              <article> <!-- Fourth publication entry. -->
                 <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
                 <div>
                   <p>Tamang, T., Ramtel, P., Thapa, S., Thapa, D., Bhattarai, P., & Shrestha, J. K. (2023). Qualitative evaluation of reconstructed masonry residential building after the Gorkha earthquake 2015 in rural areas of Nepal: A case study at Bhalche, Nuwakot. Journal of the Institute of Engineering, 17(1), 38-52.</p>
+                  <div class="btn-container">
+                    <button class="btn btn-color-2" onclick="location.href='https://www.researchgate.net/publication/369968581_Qualitative_Evaluation_of_Reconstructed_Masonry_Residential_Building_after_the_Gorkha_Earthquake_2015_in_Rural_Areas_of_Nepal_A_Case_Study_at_Bhalche_Nuwakot'">View</button>
+                  </div>
                 </div>
               </article>
             </div>
           </div>
         </div>
-        <img
-          src="./assets/arrow.png"
-          alt="Arrow icon"
-          class="icon arrow"
-          onclick="location.href='./#projects'"
-        />
-      </section>
-      <section id="projects">
-        <p class="section__text__p1">Projects I've worked on in my career and where I am very proud of I must say</p>
-        <h1 class="title">Projects</h1>
-        <div class="experience-details-container">
-          <div class="about-containers horizontal-scroll-container">
-            <div class="details-container color-container">
-              <div class="article-container">
-                <img src="./assets/Master_Thesis.JPG" alt="Project 1" class="project-img" />
-              </div>
-              <h2 class="experience-sub-title project-title">Graduate Project</h2>
-              <div class="btn-container">
-                <button class="btn btn-color-2 project-btn" onclick="location.href='https://www.proquest.com/openview/8097216abbd470de57fa44498e2921ee/1?pq-origsite=gscholar&cbl=18750&diss=y'">Link</button>
-              </div>
-              <p class="project-description">Analyzed the stress-strain behavior of confined green concrete as part of my Master's thesis project.</p>
+      </div>
+      <img
+        src="./assets/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#projects'" <!-- Arrow to next section (Projects). -->
+      />
+    </section>
+    <!-- Projects Section: Displays projects with images, titles, links, and descriptions in a horizontal scroll. -->
+    <section id="projects">
+      <p class="section__text__p1">Projects I've worked on in my career and where I am very proud of I must say</p> <!-- Subtitle. -->
+      <h1 class="title">Projects</h1> <!-- Main heading. -->
+      <div class="experience-details-container"> <!-- Container for project details. -->
+        <div class="about-containers horizontal-scroll-container"> <!-- Horizontal scroll for multiple projects. -->
+          <div class="details-container color-container"> <!-- Individual project card. -->
+            <div class="article-container">
+              <img src="./assets/Master_Thesis.JPG" alt="Project 1" class="project-img" /> <!-- Project image. -->
             </div>
-            <div class="details-container color-container">
-              <div class="article-container">
-                <img src="./assets/Undergrad_Thesis.png" alt="Project 2" class="project-img" />
-              </div>
-              <h2 class="experience-sub-title project-title">Undergraduate Project</h2>
-              <div class="btn-container">
-                <button class="btn btn-color-2 project-btn" onclick="location.href='https://www.researchgate.net/publication/390493318_Design_of_Bridge_over_SatiKhola_Palung_Makawanpur'">Link</button>
-              </div>
-              <p class="project-description">Designed a T-beam concrete bridge using the Limit State Approach.</p>
+            <h2 class="experience-sub-title project-title">Graduate Project</h2> <!-- Project title. -->
+            <div class="btn-container">
+              <button class="btn btn-color-2 project-btn" onclick="location.href='https://www.proquest.com/openview/8097216abbd470de57fa44498e2921ee/1?pq-origsite=gscholar&cbl=18750&diss=y'">Link</button> <!-- Link button. -->
             </div>
-            <div class="details-container color-container">
-              <div class="article-container">
-                <img src="./assets/Horizontal_Curve_Project.png" alt="Project 3" class="project-img" />
-              </div>
-              <h2 class="experience-sub-title project-title">Horizontal Curve</h2>
-              <div class="btn-container">
-                <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/Punct-paw/Horizontal-Circular-Curve'">Github</button>
-              </div>
-              <p class="project-description">Python code for visualization of horizontal circular curves.</p>
-            </div>
+            <p class="project-description">Analyzed the stress-strain behavior of confined green concrete as part of my Master's thesis project.</p> <!-- Description. -->
           </div>
-          <div style="text-align: center; margin-top: 1rem;">
-            <button onclick="location.href='more_projects.html'" class="btn btn-color-2">See More</button>
+          <div class="details-container color-container"> <!-- Second project. -->
+            <div class="article-container">
+              <img src="./assets/Undergrad_Thesis.png" alt="Project 2" class="project-img" />
+            </div>
+            <h2 class="experience-sub-title project-title">Undergraduate Project</h2>
+            <div class="btn-container">
+              <button class="btn btn-color-2 project-btn" onclick="location.href='https://www.researchgate.net/publication/390493318_Design_of_Bridge_over_SatiKhola_Palung_Makawanpur'">Link</button>
+            </div>
+            <p class="project-description">Designed a T-beam concrete bridge using the Limit State Approach.</p>
+          </div>
+          <div class="details-container color-container"> <!-- Third project. -->
+            <div class="article-container">
+              <img src="./assets/Horizontal_Curve_Project.png" alt="Project 3" class="project-img" />
+            </div>
+            <h2 class="experience-sub-title project-title">Horizontal Curve</h2>
+            <div class="btn-container">
+              <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/Punct-paw/Horizontal-Circular-Curve'">Github</button>
+            </div>
+            <p class="project-description">Python code for visualization of horizontal circular curves.</p>
           </div>
         </div>
-      </section>
-      <section id="contact">
-        <p class="section__text__p1">Get in Touch</p>
-        <h1 class="title">Contact Me</h1>
-        <div class="contact-info-upper-container">
-          <div class="contact-info-container">
-            <img
-              src="./assets/email.png"
-              alt="Email icon"
-              class="icon contact-icon email-icon"
-            />
-            <p><a href="mailto:pawanbhattarai0123@gmail.com">Pawanbhattarai0123@gmail.com</a></p>
-          </div>
-          <div class="contact-info-container">
-            <img
-              src="./assets/linkedin.png"
-              alt="LinkedIn icon"
-              class="icon contact-icon"
-            />
-            <p><a href="http://www.linkedin.com/in/pawanbhattarai2">LinkedIn</a></p>
+        <div style="text-align: center; margin-top: 1rem;"> <!-- Centered button for more projects. -->
+          <button onclick="location.href='more_projects.html'" class="btn btn-color-2">See More</button> <!-- Link to more projects page. -->
+        </div>
+      </div>
+      <img
+        src="./assets/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#blogs'" <!-- Arrow to next section (Blogs). -->
+      />
+    </section>
+    <!-- Blogs Section: Placeholder for future blog entries, structured similarly to publications. -->
+    <section id="blogs">
+      <p class="section__text__p1">Read My Thoughts On</p> <!-- Subtitle. -->
+      <h1 class="title">Blogs</h1> <!-- Main heading. -->
+      <div class="experience-details-container">
+        <div class="about-containers">
+          <div class="details-container scroll-container">
+            <div class="article-container">
+              <!-- Add blog entries here in the future, similar to publications or projects -->
+              <p>No blogs available yet. Check back soon!</p> <!-- Placeholder text. -->
+            </div>
           </div>
         </div>
-      </section>
-      <footer>
-        <nav>
-          <div class="nav-links-container">
-            <ul class="nav-links">
-              <li><a href="#profile">Profile</a></li>
-              <li><a href="#experience">Experience</a></li>
-              <li><a href="#projects">Projects</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
+      </div>
+      <img
+        src="./assets/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#discoveries'" <!-- Arrow to next section (Discoveries). -->
+      />
+    </section>
+    <!-- Discoveries Section: Placeholder for future discoveries, structured similarly. -->
+    <section id="discoveries">
+      <p class="section__text__p1">Explore My</p> <!-- Subtitle. -->
+      <h1 class="title">Discoveries</h1> <!-- Main heading. -->
+      <div class="experience-details-container">
+        <div class="about-containers">
+          <div class="details-container scroll-container">
+            <div class="article-container">
+              <!-- Add discovery entries here in the future, similar to publications or projects -->
+              <p>No discoveries available yet. Check back soon!</p> <!-- Placeholder text. -->
+            </div>
           </div>
-        </nav>
-        <p>Copyright &#169; 2023 Pawan Bhattarai. All Rights Reserved.</p>
-      </footer>
-      <script src="script.js"></script>
-      <script>
-        // Canvas animation for bouncing balls in the profile section
-        const canvas = document.getElementById('background-canvas');
-        const ctx = canvas.getContext('2d');
+        </div>
+      </div>
+      <img
+        src="./assets/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#awards'" <!-- Arrow to next section (Awards). -->
+      />
+    </section>
+    <!-- Awards Section: New section added at the end (before Contact) for listing awards, with placeholder content. Structured like Publications for consistency. -->
+    <section id="awards">
+      <p class="section__text__p1">Recognitions I've Received</p> <!-- Subtitle for awards. -->
+      <h1 class="title">Awards</h1> <!-- Main heading. -->
+      <div class="experience-details-container"> <!-- Container for award details. -->
+        <div class="about-containers">
+          <div class="details-container scroll-container"> <!-- Scrollable container for awards. -->
+            <div class="article-container"> <!-- Container for individual award articles. -->
+              <!-- Add award entries here in the future, e.g., <article> with icon, title, description, and optional link/button. -->
+              <p>No awards listed yet. Check back soon!</p> <!-- Placeholder text; replace with actual awards as needed. -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <img
+        src="./assets/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#contact'" <!-- Arrow to next section (Contact). -->
+      />
+    </section>
+    <!-- Contact Section: Provides contact information with icons and links. -->
+    <section id="contact">
+      <p class="section__text__p1">Get in Touch</p> <!-- Subtitle. -->
+      <h1 class="title">Contact Me</h1> <!-- Main heading. -->
+      <div class="contact-info-upper-container"> <!-- Upper container for contact info. -->
+        <div class="contact-info-container"> <!-- Email contact. -->
+          <img
+            src="./assets/email.png"
+            alt="Email icon"
+            class="icon contact-icon email-icon" <!-- Email icon. -->
+          />
+          <p><a href="mailto:pawanbhattarai0123@gmail.com">Pawanbhattarai0123@gmail.com</a></p> <!-- Email link. -->
+        </div>
+        <div class="contact-info-container"> <!-- LinkedIn contact. -->
+          <img
+            src="./assets/linkedin.png"
+            alt="LinkedIn icon"
+            class="icon contact-icon" <!-- LinkedIn icon. -->
+          />
+          <p><a href="http://www.linkedin.com/in/pawanbhattarai2">LinkedIn</a></p> <!-- LinkedIn link. -->
+        </div>
+      </div>
+    </section>
+    <!-- Footer: Contains navigation links and copyright notice. -->
+    <footer>
+      <nav> <!-- Footer navigation. -->
+        <div class="nav-links-container">
+          <ul class="nav-links"> <!-- List of footer links, matching main nav. -->
+            <li><a href="#profile">Profile</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#blogs">Blogs</a></li>
+            <li><a href="#discoveries">Discoveries</a></li>
+            <li><a href="#awards">Awards</a></li> <!-- New footer link to Awards. -->
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+      <p>Copyright &#169; 2023 Pawan Bhattarai. All Rights Reserved.</p> <!-- Copyright notice. -->
+    </footer>
+    <script src="script.js"></script> <!-- External JavaScript file for menu toggle and other scripts. -->
+    <!-- Inline JavaScript: Handles the canvas animation for bouncing balls in the profile section. -->
+    <script>
+      // Canvas animation for bouncing balls in the profile section
+      const canvas = document.getElementById('background-canvas'); // Selects the canvas element.
+      const ctx = canvas.getContext('2d'); // Gets 2D drawing context.
 
-        // Set canvas size to match the profile section
-        function resizeCanvas() {
-          canvas.width = canvas.offsetWidth;
-          canvas.height = canvas.offsetHeight;
+      // Set canvas size to match the profile section
+      function resizeCanvas() { // Function to resize canvas on window resize.
+        canvas.width = canvas.offsetWidth; // Sets width to parent's width.
+        canvas.height = canvas.offsetHeight; // Sets height to parent's height.
+      }
+      window.addEventListener('resize', resizeCanvas); // Listens for window resize events.
+      resizeCanvas(); // Initial resize.
+
+      // Ball properties
+      const BALL_COLORS = [ // Array of semi-transparent colors for balls.
+        'rgba(255, 0, 0, 0.3)',   // Red, semi-transparent
+        'rgba(0, 255, 0, 0.3)',   // Green, semi-transparent
+        'rgba(0, 0, 255, 0.3)',   // Blue, semi-transparent
+        'rgba(255, 255, 0, 0.3)'  // Yellow, semi-transparent
+      ];
+      const balls = []; // Array to hold ball objects.
+
+      // Ball class equivalent
+      class Ball { // Class for creating ball objects.
+        constructor(x, y, radius, color) { // Constructor with position, radius, color.
+          this.x = x;
+          this.y = y;
+          this.radius = radius;
+          this.color = color;
+          this.dx = [3, 4][Math.floor(Math.random() * 2)] * (Math.random() < 0.5 ? 1 : -1); // Random horizontal speed.
+          this.dy = [3, 4][Math.floor(Math.random() * 2)] * (Math.random() < 0.5 ? 1 : -1); // Random vertical speed.
         }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
 
-        // Ball properties
-        const BALL_COLORS = [
-          'rgba(255, 0, 0, 0.3)',   // Red, semi-transparent
-          'rgba(0, 255, 0, 0.3)',   // Green, semi-transparent
-          'rgba(0, 0, 255, 0.3)',   // Blue, semi-transparent
-          'rgba(255, 255, 0, 0.3)'  // Yellow, semi-transparent
-        ];
-        const balls = [];
+        move() { // Method to update ball position and handle bouncing.
+          this.x += this.dx;
+          this.y += this.dy;
 
-        // Ball class equivalent
-        class Ball {
-          constructor(x, y, radius, color) {
-            this.x = x;
-            this.y = y;
-            this.radius = radius;
-            this.color = color;
-            this.dx = [3, 4][Math.floor(Math.random() * 2)] * (Math.random() < 0.5 ? 1 : -1); // Random speed: 3 or 4
-            this.dy = [3, 4][Math.floor(Math.random() * 2)] * (Math.random() < 0.5 ? 1 : -1);
+          // Bounce off walls
+          if (this.x - this.radius <= 0 || this.x + this.radius >= canvas.width) { // Left/right bounce.
+            this.dx *= -1;
           }
-
-          move() {
-            this.x += this.dx;
-            this.y += this.dy;
-
-            // Bounce off walls
-            if (this.x - this.radius <= 0 || this.x + this.radius >= canvas.width) {
-              this.dx *= -1;
-            }
-            if (this.y - this.radius <= 0 || this.y + this.radius >= canvas.height) {
-              this.dy *= -1;
-            }
-          }
-
-          draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = this.color;
-            ctx.fill();
+          if (this.y - this.radius <= 0 || this.y + this.radius >= canvas.height) { // Top/bottom bounce.
+            this.dy *= -1;
           }
         }
 
-        // Create ten balls at random positions
-        for (let i = 0; i < 10; i++) {
-          const x = Math.random() * (canvas.width - 60) + 30; // Keep balls within bounds
-          const y = Math.random() * (canvas.height - 60) + 30;
-          const color = BALL_COLORS[i % BALL_COLORS.length]; // Cycle through colors
-          balls.push(new Ball(x, y, 10, color));
+        draw() { // Method to draw the ball on canvas.
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); // Draws circle.
+          ctx.fillStyle = this.color; // Sets fill color.
+          ctx.fill(); // Fills the circle.
         }
+      }
 
-        // Animation loop
-        function animate() {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          balls.forEach(ball => {
-            ball.move();
-            ball.draw();
-          });
-          requestAnimationFrame(animate);
-        }
+      // Create ten balls at random positions
+      for (let i = 0; i < 10; i++) { // Loop to create 10 balls.
+        const x = Math.random() * (canvas.width - 60) + 30; // Random x position within bounds.
+        const y = Math.random() * (canvas.height - 60) + 30; // Random y position.
+        const color = BALL_COLORS[i % BALL_COLORS.length]; // Cycles through colors.
+        balls.push(new Ball(x, y, 10, color)); // Adds ball to array.
+      }
 
-        // Start animation
-        animate();
-      </script>
-    </body>
+      // Animation loop
+      function animate() { // Function to animate balls.
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clears canvas each frame.
+        balls.forEach(ball => { // Loops through balls.
+          ball.move(); // Updates position.
+          ball.draw(); // Draws ball.
+        });
+        requestAnimationFrame(animate); // Requests next frame.
+      }
 
+      // Start animation
+      animate(); // Starts the animation loop.
+    </script>
+  </body>
 </html>
