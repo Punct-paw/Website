@@ -31,8 +31,12 @@ frame_bottom = 0
 
 def set_bounds(evt=None):
     global frame_left, frame_top, frame_right, frame_bottom
-    canvas.width = section.clientWidth
-    canvas.height = section.clientHeight
+    # Debug: Print section size
+    print("section.clientWidth =", section.clientWidth)
+    print("section.clientHeight =", section.clientHeight)
+
+    canvas.width = section.clientWidth if section.clientWidth else 1200
+    canvas.height = section.clientHeight if section.clientHeight else 600
     pic_left = pic.offsetLeft
     pic_top = pic.offsetTop
     pic_width = pic.offsetWidth
