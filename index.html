@@ -41,7 +41,7 @@
     <!-- Brython for running Python in the browser -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.12.7/brython.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.12.7/brython_stdlib.js"></script>
-
+    
     <!--
       Link to the main stylesheet. Relative path assumes style.css sits alongside index.html.
       Browsers load and apply this CSS to the page. Keeping styles external allows caching and separation of concerns.
@@ -54,7 +54,7 @@
     -->
     <link rel="stylesheet" href="mediaqueries.css" />
   </head>
-
+ 
   <body onload="brython(1)">
     <!--
       BODY contains all visible content.
@@ -164,7 +164,7 @@
             alt="Pawan Bhattarai profile picture"
           />
         </div>
-
+        
         <!--
           Text block with headings and action buttons.
           Semantically we use <h1> for name (main heading), <p> for supporting text to aid SEO and accessibility.
@@ -182,7 +182,7 @@
           <div class="btn-container">
             <button
               class="btn btn-color-2"
-              onclick="window.open('./assets/Resume.pdf', '_blank')"
+              onclick="window.open('./assets/Resume.docx', '_blank')"
             >
               Download CV
             </button>
@@ -255,7 +255,7 @@
             <div class="article-container">
               <!-- Job 1: Structured as article for semantic grouping of icon + details -->
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/bullet.webp" alt="" class="icon" />
                 <div>
                   <h3>Bridge/Structural Engineer (Jan 2025 - Present)</h3>
                   <p>Arkansas Department of Transportation (ArDOT)</p>
@@ -267,7 +267,7 @@
 
               <!-- Job 2 -->
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/bullet.webp" alt="" class="icon" />
                 <div>
                   <h3>Graduate Teaching Assistant (Aug 2023 - Dec 2024)</h3>
                   <p>Idaho State University</p>
@@ -279,7 +279,7 @@
 
               <!-- Job 3 -->
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/bullet.webp" alt="" class="icon" />
                 <div>
                   <h3>Civil Engineer (Dec 2022 - Aug 2023)</h3>
                   <p>Kathmandu Metropolitan City Office, Nepal</p>
@@ -317,10 +317,10 @@
                 <div>
                   <a
                     class="publication-link"
-                    href="https://www.researchgate.net/publication/392500660_Stress-Strain_Behavior_of_Confined_Green_Concrete"
+                    href="https://structurae.net/en/literature/conference-paper/stress-strain-behavior-of-confined-green-concrete"
                     target="_blank"
                     rel="noopener"
-                    >Stress-Strain Behavior of Confined Green Concrete (2025) - IABSE Symposium, Tokyo</a
+                    >Stress-Strain Behavior of Confined Green Concrete - IABSE Symposium: Environmentally Friendly Technologies and Structures ,2025</a
                   >
                 </div>
               </article>
@@ -333,7 +333,7 @@
                     href="https://structurae.net/en/literature/conference-paper/sustainable-concrete-with-dairy-wastewater-a-state-of-the-art-review"
                     target="_blank"
                     rel="noopener"
-                    >Sustainable Concrete with Dairy Wastewater (2025) - IABSE Symposium, Tokyo</a
+                    >Sustainable Concrete with Dairy Wastewater: A State-of-the-Art Review - IABSE Symposium: Environmentally Friendly Technologies and Structures ,2025</a
                   >
                 </div>
               </article>
@@ -346,20 +346,7 @@
                     href="https://www.proquest.com/openview/8097216abbd470de57fa44498e2921ee/1?pq-origsite=gscholar&cbl=18750&diss=y"
                     target="_blank"
                     rel="noopener"
-                    >Stress-Strain Behavior of Confined Green Concrete with Precipitated Calcium Carbonate and Upcycled Concrete Aggregate (2024) - Master’s thesis, Idaho State University</a
-                  >
-                </div>
-              </article>
-
-              <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
-                <div>
-                  <a
-                    class="publication-link"
-                    href="https://www.researchgate.net/publication/390493318_Design_of_Bridge_over_SatiKhola_Palung_Makawanpur"
-                    target="_blank"
-                    rel="noopener"
-                    >Design of Bridge over SatiKhola, Palung, Makawanpur (Undergraduate Project) (2022) - Bachelor's thesis, Pulchowk Campus</a
+                    >Stress-Strain Behavior of Confined Green Concrete with Precipitated Calcium Carbonate and Upcycled Concrete Aggregate -   Idaho State University ProQuest Dissertations & Theses,  2024</a
                   >
                 </div>
               </article>
@@ -372,7 +359,20 @@
                     href="https://www.researchgate.net/publication/369968581_Qualitative_Evaluation_of_Reconstructed_Masonry_Residential_Building_after_the_Gorkha_Earthquake_2015_in_Rural_Areas_of_Nepal_A_Case_Study_at_Bhalche_Nuwakot"
                     target="_blank"
                     rel="noopener"
-                    >Qualitative evaluation of reconstructed masonry buildings after the Gorkha earthquake 2015 (2023) - Journal of the Institute of Engineering, 17(1)</a
+                    >Qualitative evaluation of reconstructed masonry residential building after the Gorkha earthquake 2015 in rural areas of Nepal: A case study at Bhalche, Nuwakot - Journal of the Institute of Engineering, 2023</a
+                  >
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <a
+                    class="publication-link"
+                    href="https://www.researchgate.net/publication/390493318_Design_of_Bridge_over_SatiKhola_Palung_Makawanpur"
+                    target="_blank"
+                    rel="noopener"
+                    >Design of Bridge over SatiKhola, Palung, Makawanpur - Undergrad's Major Project, Pulchowk Campus, 2021</a
                   >
                 </div>
               </article>
@@ -387,7 +387,7 @@
 
     <!-- Projects Section -->
     <section id="projects">
-      <p class="section__text__p1">Projects I've Worked On</p>
+      <p class="section__text__p1">Github Coding I've Worked On</p>
       <h1 class="title">Projects</h1>
 
       <div class="experience-details-container">
@@ -399,7 +399,7 @@
                 <h2 class="experience-sub-title project-title">
                   <a href="https://github.com/Punct-paw/Interaction-Diagram" target="_blank" rel="noopener">Interaction Diagram for Beam</a>
                 </h2>
-                <p class="project-description">A Python tool for generating interaction diagrams for beams.</p>
+                <p class="project-description">A Python tool for generating interaction diagrams for beams. </p>
               </li>
 
               <li class="project-item">
@@ -409,6 +409,8 @@
                 <p class="project-description">Python tool to visualize horizontal circular curves for geometric design.</p>
               </li>
 
+
+
               <li class="project-item">
                 <h2 class="experience-sub-title project-title">
                   <a href="https://github.com/Punct-paw/Parabolic-Vertical-Curve" target="_blank" rel="noopener">Parabolic Vertical Curve</a>
@@ -416,11 +418,20 @@
                 <p class="project-description">Parabolic Vertical Curve and its components.</p>
               </li>
 
+
+
               <li class="project-item">
                 <h2 class="experience-sub-title project-title">
-                  <a href="https://github.com/Punct-paw/HTML-CSS-JS-WEBSITE" target="_blank" rel="noopener">HTML CSS JS Website</a>
+                  <a href="https://github.com/Punct-paw/Website" target="_blank" rel="noopener">HTML CSS JS Website</a>
                 </h2>
                 <p class="project-description">A website developed using HTML, CSS, and JavaScript.</p>
+              </li>
+
+              <li class="project-item">
+                <h2 class="experience-sub-title project-title">
+                  <a href="https://github.com/Punct-paw/Calculator" target="_blank" rel="noopener">HTML CSS JS Website</a>
+                </h2>
+                <p class="project-description">A simple Calculator built using Python and PyQt6. This application supports basic arithmetic operations (+, -, *, /) with mouse clicks or keyboard input, including decimal points, backspace, and clear functionality.</p>
               </li>
             </ul>
           </div>
@@ -462,31 +473,14 @@
             <div class="article-container">
               <!-- Curated links that you found interesting — keep these short and link to sources with target="_blank" for new tabs. -->
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/bullet.webp" alt="" class="icon" />
                 <div>
                   <p>
-                    <a href="https://en.wikipedia.org/wiki/Burj_Khalifa" target="_blank" rel="noopener">Engineering Secrets of the Burj Khalifa</a> - Structural design of the world's tallest building.
-                  </p>
+                    <a href="https://www.sciencedaily.com/releases/2025/10/251016223106.htm" target="_blank" rel="noopener">Scientists 3D-print materials that stop vibrations cold</a>
                 </div>
               </article>
 
-              <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
-                <div>
-                  <p>
-                    <a href="https://www.bbc.com/news/science-environment-45944891" target="_blank" rel="noopener">Self-Healing Concrete</a> - Material that repairs its own cracks using bacteria.
-                  </p>
-                </div>
-              </article>
-
-              <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
-                <div>
-                  <p>
-                    <a href="https://www.theguardian.com/technology/2021/oct/12/worlds-first-3d-printed-steel-bridge-opens-in-amsterdam" target="_blank" rel="noopener">World's First 3D-Printed Steel Bridge</a> - Additive manufacturing in civil engineering.
-                  </p>
-                </div>
-              </article>
+              
             </div>
           </div>
         </div>
@@ -511,124 +505,118 @@
             <div class="article-container">
               <!-- Each article is a certification with issuing org and date. Listed in reverse chronological order for professionalism. -->
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/FE Exam.png" alt="" class="icon" />
                 <div>
-                  <h4>Professional Engineer (PE) - Structural</h4>
-                  <p>Arkansas State Board of Licensure for Professional Engineers, Issued Jan 2025</p>
+                  <h4>Fundamental of Engineering (FE) Exam </h4>
+                  <p>NCEES, Issued Jan 2024</p>
                 </div>
               </article>
 
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/udemy.jpg" alt="" class="icon" />
                 <div>
-                  <h4>ASCE Structural Engineering Certification</h4>
-                  <p>American Society of Civil Engineers, Issued 2025</p>
+                  <h4>AutoCAD 2020: 2D and 3D</h4>
+                  <p>Udemy, Issued Aug 2020</p>
                 </div>
               </article>
 
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/Infratech_civil.jpg" alt="" class="icon" />
                 <div>
-                  <h4>LEED Green Associate</h4>
-                  <p>U.S. Green Building Council, Issued 2024</p>
+                  <h4>AutoCAD 1 (Begineer)</h4>
+                  <p>Infratech Civil, Issued Aug 2020</p>
                 </div>
               </article>
 
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/udemy.jpg" alt="" class="icon" />
                 <div>
-                  <h4>Python for Everybody Specialization</h4>
-                  <p>Coursera (University of Michigan), Issued 2024</p>
+                  <h4>Autodesk</h4>
+                  <p>Udemy, Issued Aug 2020</p>
                 </div>
               </article>
 
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/Infratech_civil.jpg" alt="" class="icon" />
                 <div>
-                  <h4>LaTeX for Students, Engineers, and Scientists</h4>
-                  <p>DeepLearning.AI, Issued 2024</p>
+                  <h4>Civil 3D for Beginners: Level 1</h4>
+                  <p>Infratech Civil, Issued Aug 2020</p>
                 </div>
               </article>
 
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/elearning.jpg" alt="" class="icon" />
                 <div>
-                  <h4>Bridge Inspection and Evaluation</h4>
-                  <p>Federal Highway Administration, Issued 2024</p>
+                  <h4>Construction Management (Short Course)</h4>
+                  <p>eLearning College, Issued Aug 2020</p>
                 </div>
               </article>
 
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/tutorialspoint_logo.jpg" alt="" class="icon" />
                 <div>
-                  <h4>Sustainable Infrastructure Professional</h4>
-                  <p>Institute for Sustainable Infrastructure, Issued 2024</p>
+                  <h4>Introduction to Google Sketch up</h4>
+                  <p>Tutorialspoint, Issued Aug 2020</p>
                 </div>
               </article>
 
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/coursera_logo.jpg" alt="" class="icon" />
                 <div>
-                  <h4>Project Management Professional (PMP)</h4>
-                  <p>Project Management Institute, Issued 2024</p>
+                  <h4>Mastering bitumen for better roads and innovative applications</h4>
+                  <p>Coursera, Issued Aug 2020</p>
                 </div>
               </article>
 
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/udemy.jpg" alt="" class="icon" />
                 <div>
-                  <h4>Introduction to GIS Mapping</h4>
-                  <p>Coursera (University of Toronto), Issued 2024</p>
+                  <h4>Projects Cost Management, Estimating, Budgeting and Control</h4>
+                  <p>Udemy, Issued Aug 2020</p>
                 </div>
               </article>
 
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/elearning.jpg" alt="" class="icon" />
                 <div>
-                  <h4>Autodesk Certified Professional: AutoCAD</h4>
-                  <p>Autodesk, Issued 2023</p>
+                  <h4>Risk Management (Short Course)</h4>
+                  <p>eLearning College, Issued Aug 2020</p>
                 </div>
               </article>
 
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/coursera_logo.jpg" alt="" class="icon" />
                 <div>
-                  <h4>Excel VBA for Creative Problem Solving</h4>
-                  <p>Coursera, Issued 2023</p>
+                  <h4>3D CAD Fundamental</h4>
+                  <p>Coursera, Issued Jul 2020</p>
+                </div>
+              </article>
+              
+              <article>
+                <img src="./assets/coursera_logo.jpg" alt="" class="icon" />
+                <div>
+                  <h4>BIM Application for Engineers</h4>
+                  <p>Coursera, Issued Jul 2020</p>
                 </div>
               </article>
 
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/coursera_logo.jpg" alt="" class="icon" />
                 <div>
-                  <h4>ACI Concrete Field Testing Technician - Grade I</h4>
-                  <p>American Concrete Institute, Issued 2023</p>
+                  <h4>BIM FundamentalS for Engineers</h4>
+                  <p>Coursera, Issued Jul 2020</p>
                 </div>
               </article>
 
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/coursera_logo.jpg" alt="" class="icon" />
                 <div>
-                  <h4>FEMA Introduction to Emergency Management</h4>
-                  <p>FEMA, Issued 2023</p>
+                  <h4>Autodesk Certified Professional: Civil 3D for Infrastructure Design Exam Prep</h4>
+                  <p>Coursera, Issued Jul 2020</p>
                 </div>
               </article>
 
-              <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
-                <div>
-                  <h4>OSHA 30-Hour Construction Safety</h4>
-                  <p>OSHA, Issued 2023</p>
-                </div>
-              </article>
-
-              <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
-                <div>
-                  <h4>MATLAB Onramp</h4>
-                  <p>MathWorks, Issued 2023</p>
-                </div>
-              </article>
+             
             </div>
           </div>
 
@@ -639,70 +627,73 @@
 
             <div class="article-container">
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/idaho_state_university_logo.jpg" alt="" class="icon" />
                 <div>
-                  <h4>Outstanding Graduate Student Award</h4>
-                  <p>Idaho State University, 2024</p>
+                  <h4>Graduate Teaching Assistantship</h4>
+                  <p>Idaho State University, 2023</p>
                 </div>
               </article>
 
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/Pulchowk.jpg" alt="" class="icon" />
                 <div>
-                  <h4>IABSE Symposium Best Paper Award</h4>
-                  <p>International Association for Bridge and Structural Engineering, 2025</p>
+                  <h4>Participant in Inter College Model Competition</h4>
+                  <p>Pulchowk Campus(CESS-Nepal), 2016</p>
                 </div>
               </article>
 
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/Pulchowk.jpg" alt="" class="icon" />
                 <div>
-                  <h4>Nepal Engineering Council Excellence Award</h4>
-                  <p>Nepal Engineering Council, 2023</p>
+                  <h4>Full Merit Scholarship for Undergraduate Study</h4>
+                  <p>Pulchowk Campus(IOE), 2016</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/HSEB.webp" alt="" class="icon" />
+                <div>
+                  <h4>Science Faculty Topper in Lumbini Zone in High School</h4>
+                  <p>HSEB (Nepal), 2014</p>
                 </div>
               </article>
             </div>
-
+            
             <!-- Organizations & memberships: Increased margin-top for better spacing after awards. -->
+            <img src="./assets/experience.png" alt="" class="icon" />
             <h3>Organizations & Memberships</h3>
             <div class="article-container">
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/ACI.webp" alt="" class="icon" />
                 <div>
                   <h4>American Concrete Institute (ACI)</h4>
-                  <p>Student Member</p>
+                  <p>Student Member, 2023 - Present</p>
                 </div>
               </article>
 
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/ASCE.webp" alt="" class="icon" />
                 <div>
                   <h4>American Society of Civil Engineers (ASCE)</h4>
-                  <p>Student Member</p>
+                  <p>Student Member, 2023 - Present</p>
                 </div>
               </article>
 
-              <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
-                <div>
-                  <h4>International Association for Bridge and Structural Engineering (IABSE)</h4>
-                  <p>Member</p>
-                </div>
-              </article>
+              
 
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/NEC.gif" alt="" class="icon" />
                 <div>
                   <h4>Nepal Engineering Council</h4>
-                  <p>Registered Engineer</p>
+                  <p>Registered Engineer, 2021 - Present</p>
                 </div>
               </article>
 
               <article>
-                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <img src="./assets/CESS.webp" alt="" class="icon" />
                 <div>
-                  <h4>Structural Engineers Association of Nepal</h4>
-                  <p>Member</p>
+                  <h4>CESS - Nepal</h4>
+                  <p>Treasurer, 2019-2020</p>
                 </div>
               </article>
             </div>
