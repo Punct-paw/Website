@@ -38,9 +38,6 @@
     -->
     <title>Pawan Bhattarai — Structural Engineer</title>
 
-    <!-- Brython for running Python in the browser -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.12.7/brython.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.12.7/brython_stdlib.js"></script>
     
     <!--
       Link to the main stylesheet. Relative path assumes style.css sits alongside index.html.
@@ -158,12 +155,20 @@
           Picture container. Image is in ./assets/PROFILE_PIC.jpg as you requested.
           Inline styling for size keeps this example self-contained; ideally move to CSS for maintainability.
         -->
-        <div class="section__pic-container" id="pic-container">
-          <img
-            src="./assets/PROFILE_PIC.jpg"
-            alt="Pawan Bhattarai profile picture"
-          />
+        <!-- Container flexbox to hold image left and tree right -->
+        <div id="profile-flex-container" style="display: flex; align-items: center; justify-content: center; gap: 50px; width: 100%; max-width: 1000px; margin: auto;">
+
+          <!-- Large Profile Picture Left -->
+          <div style="flex-shrink: 0;">
+            <img src="./assets/PROFILE_PIC.jpg" alt="Pawan Bhattarai profile picture"
+            style="width: 500px; height: 500px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 15px rgba(0,0,0,0.3);" />
+          </div>
+
+          <!-- Tree Diagram Right -->
+          <canvas id="tree-canvas" width="600" height="600" ;></canvas>
+
         </div>
+
         
         <!--
           Text block with headings and action buttons.
@@ -397,6 +402,7 @@
               <!-- Each project has a title (link) and short description. Left-aligned via CSS text-align: left and padding-left. -->
               <li class="project-item">
                 <h2 class="experience-sub-title project-title">
+                  <img src="./assets/newbullet.png" alt="" class="icon" />
                   <a href="https://github.com/Punct-paw/Interaction-Diagram" target="_blank" rel="noopener">Interaction Diagram for Beam</a>
                 </h2>
                 <p class="project-description">A Python tool for generating interaction diagrams for beams. </p>
@@ -404,6 +410,7 @@
 
               <li class="project-item">
                 <h2 class="experience-sub-title project-title">
+                  <img src="./assets/newbullet.png" alt="" class="icon" />
                   <a href="https://github.com/Punct-paw/Horizontal-Circular-Curve" target="_blank" rel="noopener">Horizontal Circular Curve</a>
                 </h2>
                 <p class="project-description">Python tool to visualize horizontal circular curves for geometric design.</p>
@@ -413,6 +420,7 @@
 
               <li class="project-item">
                 <h2 class="experience-sub-title project-title">
+                  <img src="./assets/newbullet.png" alt="" class="icon" />
                   <a href="https://github.com/Punct-paw/Parabolic-Vertical-Curve" target="_blank" rel="noopener">Parabolic Vertical Curve</a>
                 </h2>
                 <p class="project-description">Parabolic Vertical Curve and its components.</p>
@@ -422,6 +430,7 @@
 
               <li class="project-item">
                 <h2 class="experience-sub-title project-title">
+                  <img src="./assets/newbullet.png" alt="" class="icon" />
                   <a href="https://github.com/Punct-paw/Website" target="_blank" rel="noopener">Personal Website</a>
                 </h2>
                 <p class="project-description">A website developed using HTML, CSS, and JavaScript.</p>
@@ -429,6 +438,7 @@
 
               <li class="project-item">
                 <h2 class="experience-sub-title project-title">
+                  <img src="./assets/newbullet.png" alt="" class="icon" />
                   <a href="https://github.com/Punct-paw/Calculator" target="_blank" rel="noopener">Calculator</a>
                 </h2>
                 <p class="project-description">A simple Calculator built using Python and PyQt6. This application supports basic arithmetic operations (+, -, *, /) with mouse clicks or keyboard input, including decimal points, backspace, and clear functionality.</p>
@@ -768,10 +778,7 @@
 
     <!-- Script load: place at end of body so DOM exists when script runs, improving load time. -->
     <script src="script.js" defer></script>
-    <!--
-      defer ensures the script is executed after parsing the HTML.
-      It's safe for scripts that don't need to run before DOM is ready, reducing blocking.
-    -->
-    <script type="text/python" src="animation.py"></script>
+    <script src="treeAnimation.js" defer></script>
+
   </body>
 </html>
