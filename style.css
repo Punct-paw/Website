@@ -1,94 +1,130 @@
-/* GENERAL */
+/* style.css
+   Base styles for your site. Each rule or block has a comment explaining its purpose, why it's styled this way, and how it contributes to professionalism, accessibility, or performance.
+   Styles are organized by section (e.g., general, nav, sections) for easy navigation. Use rem units for scalability and accessibility.
+   This makes the code readable for first-time readers and maintainable.
+*/
+
+/* IMPORT FONT
+   Importing Poppins from Google Fonts for a clean, modern sans-serif look. Weights chosen for hierarchy (light for body, bold for headings).
+   Note: Using @import is fine for small projects but consider <link> in <head> for better performance in production.
+*/
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
+/* RESET / BASE
+   Remove default margin/padding on all elements to make layout predictable and consistent across browsers.
+   box-sizing: border-box ensures width/height includes padding/border, preventing overflow issues.
+*/
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box; /* Professional standard: makes sizing intuitive and prevents common layout bugs. */
 }
 
+/* BODY: global font and background defaults. line-height improves text readability. */
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif; /* Primary font stack with fallback for reliability. */
+  color: rgb(34, 34, 34); /* Dark gray for base text: high contrast for accessibility (WCAG AA). */
+  line-height: 1.5; /* Optimal for readability; prevents cramped text. */
+  background: #ffffff; /* Explicit white background for consistency. */
 }
 
+/* Smooth scrolling for anchor links: enhances UX on long pages with in-page navigation. */
 html {
   scroll-behavior: smooth;
 }
 
+/* Paragraph default color for supporting text: lighter gray for hierarchy. */
 p {
   color: rgb(85, 85, 85);
 }
 
-/* TRANSITION */
+/* LINK & BUTTON TRANSITIONS
+   Provide smooth transition for hover/focus states to make interactions feel polished and responsive.
+*/
 a,
 .btn {
-  transition: all 300ms ease;
+  transition: all 300ms ease; /* Applies to color, background, etc., for subtle animations. */
 }
 
-/* DESKTOP NAVIGATION */
+/* NAVIGATION LAYOUT
+   Base layout for both desktop and mobile nav containers using flexbox for modern, flexible alignment.
+*/
 nav,
 .nav-links {
   display: flex;
 }
 
+/* NAV: center contents horizontally and vertically. Fixed height ensures consistent spacing. */
 nav {
   justify-content: space-around;
   align-items: center;
-  height: 17vh;
+  height: 17vh; /* Sets vertical space for the nav area; vh for responsiveness. */
 }
 
+/* NAV LINKS (desktop)
+   Use gap and remove list-style for a clean horizontal nav. Font size for readability.
+*/
 .nav-links {
   gap: 1rem;
   list-style: none;
   font-size: 1.2rem;
 }
 
+/* Anchor default style: no underline for clean look, black for contrast. */
 a {
   color: black;
   text-decoration: none;
-  text-decoration-color: white;
 }
 
+/* Anchor hover for better affordance: change color and add underline with offset for professionalism. */
 a:hover {
   color: grey;
   text-decoration: underline;
-  text-underline-offset: 0.8rem;
-  text-decoration-color: rgb(181, 181, 181);
+  text-underline-offset: 0.2rem;
 }
 
+/* LOGO styling: larger font for prominence, bold for emphasis. */
 .logo {
   font-size: 1.8rem;
+  font-weight: 600;
 }
 
-.logo:hover {
-  cursor: default;
-}
-
-/* HAMBURGER MENU */
+/* HAMBURGER MENU (mobile)
+   Initially hide the mobile nav; media queries will show it below a breakpoint for responsive design.
+*/
 #hamburger-nav {
   display: none;
 }
 
+/* hamburger container positioning: relative for absolute menu positioning. */
 .hamburger-menu {
   position: relative;
   display: inline-block;
 }
 
+/* hamburger button layout: three stacked bars using flex column. No background/border for minimalism. */
 .hamburger-icon {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 24px;
   width: 30px;
+  background: transparent;
+  border: none;
   cursor: pointer;
+  padding: 0;
 }
 
+/* bars inside the hamburger: consistent width/height, transition for smooth animation to 'X'. */
 .hamburger-icon span {
+  display: block;
   width: 100%;
   height: 2px;
   background-color: black;
-  transition: all 0.3s ease-in-out;
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Enables animated toggle. */
 }
 
+/* mobile menu container (initially hidden): absolute positioning below button, with transition for smooth open/close. */
 .menu-links {
   position: absolute;
   top: 100%;
@@ -97,101 +133,122 @@ a:hover {
   width: fit-content;
   max-height: 0;
   overflow: hidden;
-  transition: all 0.3s ease-in-out;
+  transition: max-height 0.3s ease; /* Smooth height animation for UX. */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08); /* Subtle shadow for depth and professionalism. */
+  border-radius: 6px; /* Rounded corners for modern look. */
 }
 
+/* menu links inside the mobile dropdown: block for vertical stacking, padding for touch targets. */
 .menu-links a {
   display: block;
-  padding: 8px;
+  padding: 8px 12px;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: black;
-  text-decoration: none;
-  transition: all 0.3s ease-in-out;
 }
 
+/* list-style removal for mobile menu items: clean presentation. */
 .menu-links li {
   list-style: none;
 }
 
-.menu-links.open {
-  max-height: 400px;
+/* when menu-links is shown (via JS adding .open or removing hidden), set max-height to allow expansion. */
+.menu-links.open,
+.menu-links[aria-hidden="false"] {
+  max-height: 400px; /* Allows menu to expand fully; adjust if more items added. */
 }
 
+/* Animated cross-state of hamburger (controlled by adding/removing .open class in JS): transforms bars into 'X'. */
 .hamburger-icon.open span:first-child {
-  transform: rotate(45deg) translate(10px, 5px);
+  transform: rotate(45deg) translate(6px, 6px);
 }
-
 .hamburger-icon.open span:nth-child(2) {
   opacity: 0;
 }
-
 .hamburger-icon.open span:last-child {
-  transform: rotate(-45deg) translate(10px, -5px);
+  transform: rotate(-45deg) translate(6px, -6px);
 }
 
-.hamburger-icon span:first-child {
-  transform: none;
-}
-
-.hamburger-icon span:nth-child(2) {
-  opacity: 1;
-}
-
-.hamburger-icon span:last-child {
-  transform: none;
-}
-
-/* SECTIONS */
+/* SECTIONS: padding and horizontal margins for readable layout on wide screens. min-height ensures sections don't collapse. */
 section {
   padding-top: 4vh;
   margin: 0 8rem;
-  box-sizing: border-box;
   min-height: fit-content;
 }
 
+/* layout helper: container that holds a picture and text side-by-side with gap for spacing. */
 .section-container {
   display: flex;
+  gap: 3rem;
 }
 
-/* PROFILE SECTION */
+/* PROFILE HERO LAYOUT
+   Center content and create a two-column hero using flexbox. Height set for full-viewport feel.
+*/
 #profile {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   gap: 4rem;
-  height: 80vh;
+  height: auto; /* hero height: auto to allow stacking without fixed constraints. */
+  align-items: center; /* vertically center the hero content for balanced composition. */
+  position: relative; /* For absolute canvas positioning */
 }
 
+/* Canvas for animations */
+#background-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* No interaction with canvas */
+  z-index: 0; /* Behind content */
+}
+
+/* Picture container in the hero: fixed size for consistency. */
 .section__pic-container {
   display: flex;
-  height: 350px;
-  width: 350px;
+  height: 300px;
+  width: 300px;
   margin: auto 0;
+  position: relative; /* Relative for z-index if needed */
+  z-index: 1; /* Above canvas */
 }
 
+.section__pic-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #333;
+}
+
+/* Text area of hero: self-centered in flex, text centered for symmetry. */
 .section__text {
   align-self: center;
   text-align: center;
 }
 
+/* Small emphasized paragraph above title: bold for emphasis. */
 .section__text p {
   font-weight: 600;
 }
 
-.section__text__p1 {
-  text-align: center;
-}
-
+/* Lock the small subtitle under the name to a readable size with bottom margin for spacing. */
 .section__text__p2 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 
+/* Main page title size: large for impact, centered. */
 .title {
   font-size: 2.5rem;
   text-align: center;
+  margin-bottom: 0.5rem;
 }
 
+/* Social icons row: flex centered with gap for even spacing. */
 #socials-container {
   display: flex;
   justify-content: center;
@@ -199,117 +256,85 @@ section {
   gap: 1rem;
 }
 
-/* ICONS */
+/* ICON sizing: pointer cursor for interactivity, fixed height for uniformity. */
 .icon {
   cursor: pointer;
-  height: 2rem;
+  height: 2rem; /* consistent icon height for most icons, scalable via CSS. */
 }
 
-/* BUTTONS */
+/* BUTTONS
+   Flex row centered within the hero with gap for separation.
+*/
 .btn-container {
   display: flex;
   justify-content: center;
   gap: 1rem;
+  margin-top: 0.8rem;
 }
 
+/* Generic button look and feel: bold text, transition, padding for touch targets, rounded for modern UI. */
 .btn {
-  font weight: 600;
+  font-weight: 600;
   transition: all 300ms ease;
   padding: 0.8rem;
   width: 7rem;
   border-radius: 1.5rem;
+  background: transparent;
+  border: 1px solid rgba(53, 53, 53, 0.1);
 }
 
-.btn-color-1,
-.btn-color-2 {
-  border: rgb(53, 53, 53) 0.1rem solid;
-}
-
-.btn-color-1:hover,
-.btn-color-2:hover {
-  cursor: pointer;
-}
-
-.btn-color-1,
-.btn-color-2:hover {
-  background: rgb(53, 53, 53);
+/* Two visual variants for buttons: dark and light for contrast and hierarchy. */
+.btn-color-1 {
+  background: #353535;
   color: white;
 }
-
-.btn-color-1:hover {
-  background: rgb(0, 0, 0);
-}
-
 .btn-color-2 {
-  background: none;
+  background: transparent;
+  color: #353535;
+  border: 1px solid rgba(53, 53, 53, 0.1);
 }
 
-.btn-color-2:hover {
-  border: rgb(255, 255, 255) 0.1rem solid;
-}
-
-/* ABOUT SECTION */
-#about {
-  position: relative;
-}
-
+/* ABOUT BLOCKS
+   Card-like containers for education, career, etc. Flex with gap for row layout.
+*/
 .about-containers {
   gap: 1.5rem;
   margin-bottom: 1.5rem;
   margin-top: 1.5rem;
+  display: flex;
 }
 
+/* Wrapper for the about section (vertical stacking on narrow screens via media queries). */
 .about-details-container {
+  display: flex;
   justify-content: center;
   flex-direction: column;
 }
 
-.about-containers,
-.about-details-container {
-  display: flex;
-}
-
-.about-pic {
-  border-radius: 1.5rem;
-}
-
+/* Arrow navigation icon absolute positioning: placed for down-scroll prompt. */
 .arrow {
   position: absolute;
   right: -4rem;
   bottom: 2rem;
 }
 
+/* Details container style — card appearance: padding, flex grow, white bg, rounded border, subtle shadow for depth. */
 .details-container {
   padding: 1.2rem;
   flex: 1;
   background: white;
   border-radius: 1.5rem;
-  border: rgb(53, 53, 53) 0.1rem solid;
-  border-color: rgb(163, 163, 163);
+  border: 1px solid rgba(163, 163, 163, 0.35);
   text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03); /* Adds professionalism with subtle elevation. */
 }
 
-.section-container {
-  gap: 3rem;
-  height: 80%;
-}
-
+/* Reuseable section picture size helper: consistent sizing with auto margin. */
 .section__pic-container {
-  height: 350px;
-  width: 350px;
   margin: auto 0;
 }
 
-/* EDUCATION, EXPERIENCE, TECHNICAL CAPABILITIES, ETC. */
-#education,
-#experience,
-#academicprojects,
-#technicalcapabilities,
-#publications,
-#leadership {
-  position: relative;
-}
-
+/* Experience / project headings: gray color for subtlety, bold, sized with bottom margin. */
 .experience-sub-title {
   color: rgb(85, 85, 85);
   font-weight: 600;
@@ -317,12 +342,14 @@ section {
   margin-bottom: 1.5rem;
 }
 
+/* Container for multiple article entries: flex column centered. */
 .experience-details-container {
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
 
+/* Article container uses flex-wrap to gracefully handle many items on wide/narrow screens. */
 .article-container {
   display: flex;
   text-align: initial;
@@ -332,6 +359,7 @@ section {
   justify-content: space-around;
 }
 
+/* Each article uses a row layout: icon + text, full width for stacking. */
 article {
   display: flex;
   width: 100%;
@@ -339,11 +367,14 @@ article {
   gap: 0.5rem;
 }
 
+/* Allow icons inside article to be non-interactive by default (no pointer). */
 article .icon {
   cursor: default;
 }
 
-/* CONTACT */
+/* CONTACT block
+   Flex column centered, fixed height for section consistency.
+*/
 #contact {
   display: flex;
   justify-content: center;
@@ -351,17 +382,18 @@ article .icon {
   height: 60vh;
 }
 
+/* Contact container styling: flex centered, rounded border, light bg for contrast. */
 .contact-info-upper-container {
   display: flex;
   justify-content: center;
   border-radius: 1.5rem;
-  border: rgb(53, 53, 53) 0.1rem solid;
-  border-color: rgb(163, 163, 163);
+  border: 1px solid rgba(163, 163, 163, 0.35);
   background: rgb(250, 250, 250);
   margin: 1.5rem auto;
   padding: 0.5rem;
 }
 
+/* Contact item layout: flex aligned with gap, margin for spacing. */
 .contact-info-container {
   display: flex;
   align-items: center;
@@ -370,20 +402,20 @@ article .icon {
   margin: 0.8rem;
 }
 
+/* Contact text sizing: slightly larger for readability. */
 .contact-info-container p {
   font-size: 1.1rem;
 }
 
-.contact-icon {
-  cursor: default;
-}
-
+/* Slightly larger contact icons for visibility. */
 .email-icon,
 .phone-icon {
   height: 2.2rem;
 }
 
-/* FOOTER SECTION */
+/* FOOTER
+   Fixed height with horizontal margin, simple centered text for copyright.
+*/
 footer {
   height: 20vh;
   margin: 0 1rem;
@@ -391,4 +423,51 @@ footer {
 
 footer p {
   text-align: center;
+  margin-top: 1.2rem;
+  color: rgb(120, 120, 120); /* Lighter gray for subtlety. */
+}
+
+/* CENTERED SUBTITLES
+   Center the small subtitles like "Explore My" or "Projects I've Worked On" for all sections.
+*/
+.section__text__p1 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+/* PROJECT LIST
+   Ensure the actual project items are left-aligned as requested.
+*/
+.project-list {
+  text-align: left;
+  list-style: none;
+  padding-left: 0;
+}
+
+/* ACHIEVEMENTS HEADINGS SPACING
+   Add extra space after headings like "Licenses & Certifications", "Awards", and "Organizations & Memberships".
+*/
+.certifications h3,
+.awards-organizations h3 {
+  margin-bottom: 1.5rem;
+}
+
+/* PROFILE INTRO LAYOUT
+   Stack photo, description, and passion vertically within the intro container.
+*/
+.profile-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  position: relative; /* Relative for z-index if needed */
+  z-index: 1; /* Above canvas */
+}
+
+/* DESCRIPTION TEXT CONTAINER
+   Ensure the passion description is centered and has appropriate width.
+*/
+.text-container {
+  text-align: center;
+  max-width: 80%;
 }
