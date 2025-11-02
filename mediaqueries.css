@@ -1,11 +1,24 @@
+/* mediaqueries.css
+   Responsive adjustments for different screen widths. Each media query block explains the breakpoint and changes made.
+   Breakpoints are chosen based on common device sizes: 1400px (large tablets/laptops), 1200px (tablets), 600px (phones).
+   The goal is to maintain the split-screen below the intro on all screens, but stack if necessary on very small devices for usability.
+   Comments added for clarity on why each adjustment is made.
+*/
+
+/* Medium screens and smaller (e.g., large tablets): reduce profile height and let containers wrap if needed, but keep split. */
 @media screen and (max-width: 1400px) {
+  /* Slightly reduce hero height on narrower screens to fit more content without scrolling. */
   #profile {
-    height: 83vh;
+    height: auto;
     margin-bottom: 6rem;
   }
+
+  /* Allow the about containers to wrap (from row to multiple rows) if space is tight, but keep flex row by default. */
   .about-containers {
     flex-wrap: wrap;
   }
+
+  /* Treat sections as fit-content so they expand to their content height, preventing fixed heights from causing overflow. */
   #contact,
   #education,
   #experience,
@@ -17,13 +30,18 @@
   }
 }
 
+/* Small/Tablet screens (e.g., iPad): show hamburger nav, hide desktop nav, stack sections vertically where needed, but keep education/career split side-by-side. */
 @media screen and (max-width: 1200px) {
+  /* Hide desktop nav and show the mobile hamburger nav for space efficiency on narrower screens. */
   #desktop-nav {
     display: none;
   }
+
   #hamburger-nav {
     display: flex;
   }
+
+  /* Add top spacing for the named sections to separate them visually on stacked layouts. */
   #experience,
   #education,
   #academicprojects,
@@ -33,81 +51,134 @@
   .experience-details-container {
     margin-top: 2rem;
   }
+
+  /* Make profile and generic section containers stack vertically for better mobile flow. */
   #profile,
   .section-container {
     display: block;
   }
+
+  /* Hide decorative arrows on small screens to avoid layout overflow and simplify UI. */
   .arrow {
     display: none;
   }
+
+  /* Allow sections to size with content for natural flow. */
   section,
   .section-container {
     height: fit-content;
   }
+
+  /* Add breathing room horizontally on small screens (5% margin left/right). */
   section {
     margin: 0 5%;
   }
+
+  /* Make the profile picture container smaller and centered with bottom margin for spacing. */
   .section__pic-container {
-    width: 250px;
-    height: 250px;
+    width: 275px;
+    height: 275px;
     margin: 0 auto 2rem;
   }
+
   .about-containers {
     margin-top: 0;
   }
+
+  /* Ensure the split-screen (education/career) remains side-by-side by adjusting widths if needed, but let flex handle. */
+  .education {
+    width: 40%; /* Slightly adjust for better fit on tablets. */
+  }
+  .career {
+    width: 60%;
+  }
 }
 
+/* Extra small / mobile phones: Further adjustments for very narrow screens. Stack split if too cramped, but aim to keep side-by-side where possible. */
 @media screen and (max-width: 600px) {
+  /* Reduce contact & footer heights to fit smaller viewports without excessive scrolling. */
   #contact,
   footer {
     height: 40vh;
   }
+
+  /* Slight adjustment of hero margins for small phones to optimize space. */
   #profile {
-    height: 83vh;
+    height: auto;
     margin-bottom: 0;
   }
+
+  /* Slightly smaller article font for better fit on small screens. */
   article {
     font-size: 0.9rem;
   }
+
+  /* Footer nav becomes fit-content and gets spacing to avoid crowding. */
   footer nav {
     height: fit-content;
     margin-bottom: 2rem;
   }
+
+  /* Let these flex containers wrap to multiple lines for mobile stacking. */
   .about-containers,
   .contact-info-upper-container,
   .btn-container {
     flex-wrap: wrap;
   }
+
+  /* Inline adjustments for contact layout: no margin to save space. */
   .contact-info-container {
     margin: 0;
   }
+
+  /* Reduce font sizes for smaller screens to maintain readability without overflow. */
   .contact-info-container p,
   .nav-links li a {
     font-size: 0.9rem;
   }
+
   .experience-sub-title {
     font-size: 1.1rem;
   }
+
   .logo {
     font-size: 1.3rem;
   }
+
+  /* Stack nav links vertically for touch-friendly mobile nav. */
   .nav-links {
     flex-direction: column;
     gap: 0.5rem;
     text-align: center;
   }
+
+  /* Responsive sizing for picture container on narrow screens: use vw for proportional scaling. */
   .section__pic-container {
     width: auto;
-    height: 46vw;
+    height: 46vw; /* use viewport width to make image responsive and not too large. */
     justify-content: center;
   }
+
+  /* Smaller subtitle and title sizes for mobile. */
   .section__text__p2 {
     font-size: 1.1rem;
   }
+
   .title {
     font-size: 1.8rem;
   }
+
+  /* Make descriptive paragraphs more readable on narrow displays by justifying text. */
   .text-container {
     text-align: justify;
+  }
+
+  /* On very small screens, force the split-screen to stack vertically for usability (overrides side-by-side). */
+  .about-containers {
+    flex-direction: column;
+  }
+  .education,
+  .career {
+    width: 100%; /* Full width when stacked. */
   }
 }
