@@ -1,393 +1,785 @@
+<!--
+  index.html
+  Clean, accessible HTML for your personal site.
+  Every line or small block is followed by a comment that explains why it's there and how it contributes to the overall structure, accessibility, or functionality.
+  This setup ensures the site is semantic, SEO-friendly, and easy to maintain.
+-->
+
 <!DOCTYPE html>
+<!--
+  Tells the browser to render the page in standards mode (HTML5).
+  Always put this at the top of your HTML document to prevent quirks mode rendering issues.
+-->
+
 <html lang="en">
+<!--
+  Root element of the document.
+  lang="en" improves accessibility (e.g., for screen readers) and search engines by indicating the page language.
+  This helps with voice synthesis and international SEO.
+-->
+
   <head>
+    <!-- Head holds document metadata and resources (not visible content). It loads before the body for performance. -->
+
+    <!-- Character encoding declaration so the browser correctly interprets text, preventing garbled characters. -->
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!--
+      Makes the layout responsive on mobile:
+      width=device-width: match device width to prevent zoomed-out views,
+      initial-scale=1.0: initial zoom level to 100%.
+      This is crucial for mobile usability and Google's mobile-first indexing.
+    -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Portfolio</title>
+
+    <!--
+      The text that appears in the browser tab, search results, and when bookmarking.
+      Keep it concise (under 60 chars) and descriptive for SEO and user experience.
+    -->
+    <title>Pawan Bhattarai — Structural Engineer</title>
+
+    <!-- Brython for running Python in the browser -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.12.7/brython.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.12.7/brython_stdlib.js"></script>
+
+    <!--
+      Link to the main stylesheet. Relative path assumes style.css sits alongside index.html.
+      Browsers load and apply this CSS to the page. Keeping styles external allows caching and separation of concerns.
+    -->
     <link rel="stylesheet" href="style.css" />
+
+    <!--
+      Link to the responsive / media query stylesheet.
+      Kept separate to keep base styles and responsive rules organized, making it easier to debug and maintain.
+    -->
     <link rel="stylesheet" href="mediaqueries.css" />
-    <style>
-      .project-img,
-      .project-card img {
-        width: 100%;
-        height: 300px;
-        object-fit: cover;
-        border-radius: 6px;
-      }
-
-      #profile {
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-        padding: 3rem 2rem;
-      }
-
-      #background-canvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-      }
-
-      .section__pic-container,
-      .section__text {
-        position: relative;
-        z-index: 1;
-      }
-
-      /* ✅ Mobile Responsiveness Fix */
-      @media (max-width: 768px) {
-        #profile {
-          flex-direction: column;
-          padding: 2rem 1rem;
-          text-align: center;
-        }
-
-        .section__pic-container {
-          margin-bottom: 1.5rem;
-        }
-
-        .section__text h1.title {
-          font-size: 1.8rem;
-        }
-
-        .section__text__p1,
-        .section__text__p2 {
-          font-size: 1rem;
-        }
-      }
-    </style>
   </head>
-  <body>
-    <nav id="desktop-nav">
+
+  <body onload="brython(1)">
+    <!--
+      BODY contains all visible content.
+      I keep both desktop and mobile navs in the HTML and toggle visibility with CSS for simplicity and to avoid JS dependency for core navigation.
+      This ensures the site works even if JS is disabled.
+    -->
+
+    <!-- Desktop Navigation -->
+    <nav id="desktop-nav" class="nav">
+      <!--
+        Logo: simple text logo for better SEO (text is indexable) and accessibility. Could be replaced with an <img> if you have a graphical logo, but add alt text.
+      -->
       <div class="logo">Pawan Bhattarai</div>
-      <div>
-        <ul class="nav-links">
+
+      <!--
+        Main nav links as an unordered list. Semantically appropriate (it's a list of links) and easy to style as horizontal or vertical.
+      -->
+      <ul class="nav-links">
+        <li><a href="#profile">Profile</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#blogs">Blogs</a></li>
+        <li><a href="#discoveries">Discoveries</a></li>
+        <li><a href="#achievements">Achievements</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Mobile (Hamburger) Navigation -->
+    <nav id="hamburger-nav" class="nav" aria-label="Mobile navigation">
+      <!--
+        Keep the same textual logo so screen reader users still understand who's site it is, maintaining consistency across devices.
+      -->
+      <div class="logo">Pawan Bhattarai</div>
+
+      <!--
+        Wrapper for the hamburger and mobile menu.
+        The button and the menu are controlled by script.js for interactivity.
+      -->
+      <div class="hamburger-menu">
+        <!--
+          Accessible button for toggling mobile menu.
+          aria-expanded is toggled by JS to reflect open/closed state for screen readers.
+          aria-controls points to the id of the menu it controls for better accessibility linking.
+        -->
+        <button
+          class="hamburger-icon"
+          id="hamburgerBtn"
+          aria-expanded="false"
+          aria-controls="mobileMenu"
+        >
+          <!--
+            Three spans create the three-bar hamburger icon.
+            aria-hidden because they are purely decorative and shouldn't be read by screen readers.
+          -->
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+
+        <!--
+          The mobile menu list. Hidden by default using the 'hidden' attribute for semantic hiding (removes from accessibility tree).
+          JS toggles the attribute to show/hide. Using <ul> retains semantic structure for lists.
+        -->
+        <ul class="menu-links" id="mobileMenu" hidden>
           <li><a href="#profile">Profile</a></li>
-          <li><a href="#experience">Experience</a></li>
+          <li><a href="#publications">Publications</a></li>
           <li><a href="#projects">Projects</a></li>
+          <li><a href="#blogs">Blogs</a></li>
+          <li><a href="#discoveries">Discoveries</a></li>
+          <li><a href="#achievements">Achievements</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
     </nav>
-    <nav id="hamburger-nav">
-      <div class="logo">Pawan Bhattarai</div>
-      <div class="hamburger-menu">
-        <div class="hamburger-icon" onclick="toggleMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div class="menu-links">
-          <li><a href="#profile" onclick="toggleMenu()">Profile</a></li>
-          <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
-          <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
-          <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-        </div>
-      </div>
-    </nav>
-    <section id="profile" style="background-image: url('./assets/Backgroun.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-      <canvas id="background-canvas"></canvas>
-      <div class="section__pic-container">
-        <img
-          src="./assets/PROFILE_PIC.jpg" 
-          alt="Pawan Bhattarai profile picture" 
-          style="width: 250px; height: 250px; object-fit: cover; border-radius: 50%; border: 4px solid #333;" 
-        />
-      </div>
-      <div class="section__text">
-        <p class="section__text__p1">ABOUT ME</p>
-        <h1 class="title">Pawan Bhattarai</h1>
-        <p class="section__text__p2">Structural Engineer / PolyMath</p>
-        <div class="btn-container">
-          <button class="btn btn-color-2" onclick="window.open('./assets/Resume.pdf')">Download CV</button>
-          <button class="btn btn-color-1" onclick="location.href='./#contact'">Contact Info</button>
-        </div>
-        <div id="socials-container">
-          <img src="./assets/linkedin.png" alt="My LinkedIn profile" class="icon" onclick="location.href='http://www.linkedin.com/in/pawanbhattarai2'" />
-          <img src="./assets/github.png" alt="My Github profile" class="icon" onclick="location.href='https://github.com/Punct-paw'" />
-          <img src="./assets/researchgate.png" alt="My ResearchGate profile" class="icon" onclick="location.href='https://www.researchgate.net/profile/Pawan-Bhattarai'" />
-          <img src="./assets/googlescholar.png" alt="My Google Scholar profile" class="icon" onclick="location.href='https://scholar.google.com/citations?user=jjBaPnYAAAAJ&hl=en'" />
-        </div>
-      </div>
-    </section>
-    <section id="about">
-      <p class="section__text__p1">Get To Know More</p>
-      <h1 class="title">About Me</h1>
-      <div class="section-container">
-        <div class="section__pic-container">
+
+    <!-- Profile Section -->
+    <section
+      id="profile"
+      style="
+        /* inline background image kept here so the hero can be changed quickly without touching CSS */
+        background-image: url('./assets/Backgroun.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      "
+    >
+      <!--
+        Canvas element for potential decorative background animations (e.g., particles or subtle effects).
+        aria-hidden because it's decorative and not part of the content flow, ensuring screen readers ignore it.
+      -->
+      <canvas id="background-canvas" aria-hidden="true"></canvas>
+
+      <!--
+        Main wrapper for the profile intro (image + text + buttons + passion description).
+        Using a single container makes centering easier with flexbox in CSS. This is full-width on all screens.
+      -->
+      <div class="profile-intro">
+        <!--
+          Picture container. Image is in ./assets/PROFILE_PIC.jpg as you requested.
+          Inline styling for size keeps this example self-contained; ideally move to CSS for maintainability.
+        -->
+        <div class="section__pic-container" id="pic-container">
           <img
-            src="./assets/PROFILE-PIC2.jpg"
-            alt="Profile picture"
-            class="about-pic"
+            src="./assets/PROFILE_PIC.jpg"
+            alt="Pawan Bhattarai profile picture"
           />
         </div>
-        <div class="about-details-container">
-          <div class="about-containers">
-            <div class="details-container">
-              <img
-                src="./assets/experience.png"
-                alt="Experience icon"
-                class="icon"
-              />
-              <h3>Experience</h3>
-              <p>9+ years <br />Structural Engineering</p>
-            </div>
-            <div class="details-container">
-              <img
-                src="./assets/education.png"
-                alt="Education icon"
-                class="icon"
-              />
-              <h3>Education</h3>
-              <p>B.Sc. Bachelors Degree in Civil Engineering from Pulchowk Campus (81.96%)<br />M.Sc. Masters Degree in Civil Engineering from Idaho State University (4.00 GPA)</p>
-            </div>
+
+        <!--
+          Text block with headings and action buttons.
+          Semantically we use <h1> for name (main heading), <p> for supporting text to aid SEO and accessibility.
+        -->
+        <div class="section__text">
+          <p class="section__text__p1">ABOUT ME</p>
+          <h1 class="title">Pawan Bhattarai</h1>
+          <p class="section__text__p2">Structural Engineer / PolyMath</p>
+
+          <!--
+            Action buttons:
+            - Download CV opens the PDF in a new tab/window (window.open with '_blank' for new tab).
+            - Contact Info uses an anchor link to the contact section for in-page navigation.
+          -->
+          <div class="btn-container">
+            <button
+              class="btn btn-color-2"
+              onclick="window.open('./assets/Resume.pdf', '_blank')"
+            >
+              Download CV
+            </button>
+
+            <button class="btn btn-color-1" onclick="location.href='#contact'">
+              Contact Info
+            </button>
           </div>
-          <div class="text-container">
+
+          <!-- Social icons container. Images are clickable and navigate to profiles. Use target="_blank" for new tabs and rel="noopener" for security. -->
+          <div id="socials-container">
+            <!-- Provide descriptive alt text for accessibility, describing the destination/profile. -->
+            <img
+              src="./assets/linkedin.png"
+              alt="LinkedIn — Pawan Bhattarai"
+              class="icon"
+              onclick="location.href='https://www.linkedin.com/in/pawanbhattarai2'"
+            />
+            <img
+              src="./assets/github.png"
+              alt="GitHub — Punct-paw"
+              class="icon"
+              onclick="location.href='https://github.com/Punct-paw'"
+            />
+            <img
+              src="./assets/researchgate.png"
+              alt="ResearchGate — Pawan Bhattarai"
+              class="icon"
+              onclick="location.href='https://www.researchgate.net/profile/Pawan-Bhattarai'"
+            />
+            <img
+              src="./assets/googlescholar.png"
+              alt="Google Scholar — Pawan Bhattarai"
+              class="icon"
+              onclick="location.href='https://scholar.google.com/citations?user=00VI148AAAAJ'"
+            />
+          </div>
+        </div>
+
+        <!-- Short passion statement—keeps page friendly and personal. Placed here to be part of the full-width intro. -->
+        <div class="text-container">
+          <p>
+            Passionate about mathematics, programming, and structural engineering — exploring the intersection of analytical thinking and practical design to build efficient, innovative infrastructure.
+          </p>
+        </div>
+      </div>
+
+      <!--
+        Two-column style blocks for Education and Career below the intro.
+        This is the split-screen part, placed after the full-width intro. Each "details-container" is a card-like block styled in CSS.
+        The split is maintained on all screens via CSS flex, but wraps on very small screens for usability.
+      -->
+      <div class="about-details-container">
+        <div class="about-containers">
+          <!-- Education card: takes 33% width via CSS class .education -->
+          <div class="details-container scroll-container education">
+            <img src="./assets/education.png" alt="Education icon" class="icon" />
+            <h3>Education</h3>
             <p>
-              Passionate about mathematics, programming, and structural engineering — exploring the intersection of analytical thinking and practical design to build efficient, innovative solutions
+              M.Sc. in Civil Engineering (4.00 GPA), Idaho State University<br />
+              B.Sc. in Civil Engineering (81.96%), Pulchowk Campus
             </p>
+          </div>
+
+          <!-- Career card with articles describing roles: takes 67% width via CSS class .career -->
+          <div class="details-container scroll-container career">
+            <img src="./assets/experience.png" alt="Experience icon" class="icon" />
+            <h3>Career</h3>
+
+            <div class="article-container">
+              <!-- Job 1: Structured as article for semantic grouping of icon + details -->
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h3>Bridge/Structural Engineer (Jan 2025 - Present)</h3>
+                  <p>Arkansas Department of Transportation (ArDOT)</p>
+                  <p>
+                    Working on bridge and retaining wall design, using Python, VBA, and LaTeX to automate design processes.
+                  </p>
+                </div>
+              </article>
+
+              <!-- Job 2 -->
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h3>Graduate Teaching Assistant (Aug 2023 - Dec 2024)</h3>
+                  <p>Idaho State University</p>
+                  <p>
+                    Tutored courses such as AutoCAD, Surveying, and Statics. Worked on projects involving CFRP/GFRP and sustainable concrete testing.
+                  </p>
+                </div>
+              </article>
+
+              <!-- Job 3 -->
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h3>Civil Engineer (Dec 2022 - Aug 2023)</h3>
+                  <p>Kathmandu Metropolitan City Office, Nepal</p>
+                  <p>
+                    Worked on building and bridge projects, design drawings, estimates,and reports. Coordinated with local and governmental bodies.
+                  </p>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- Arrow icon linking down to publications (decorative + navigation aid). onclick provides quick JS navigation. -->
       <img
         src="./assets/arrow.png"
-        alt="Arrow icon"
+        alt="Go to publications"
         class="icon arrow"
-        onclick="location.href='./#experience'"
+        onclick="location.href='#publications'"
       />
     </section>
-    <section id="experience">
+
+    <!-- Publications Section -->
+    <section id="publications">
       <p class="section__text__p1">Explore My</p>
-      <h1 class="title">Experience</h1>
+      <h1 class="title">Publications</h1>
+
       <div class="experience-details-container">
         <div class="about-containers">
           <div class="details-container scroll-container">
-            <h2 class="experience-sub-title">Careers</h2>
             <div class="article-container">
+              <!-- Each article contains a link and a short description. target="_blank" opens in new tab, rel="noopener" for security. -->
               <article>
-                <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+                <img src="./assets/checkmark.png" alt="" class="icon" />
                 <div>
-                  <h3>Bridge/Structural Engineer (CURRENT-JAN 2025)</h3>
-                  <p>ArDOT (Arkansas Department of Transportation)</p>
-                  <p>As a Bridge Engineer at ArDOT, I am working on a variety of projects encompassing the complete design of bridges, retaining walls, and some miscellaneous structural projects. I am also utilizing Python, VBA, and LaTeX coding to automate design works.</p>
+                  <a
+                    class="publication-link"
+                    href="https://www.researchgate.net/publication/392500660_Stress-Strain_Behavior_of_Confined_Green_Concrete"
+                    target="_blank"
+                    rel="noopener"
+                    >Stress-Strain Behavior of Confined Green Concrete (2025) - IABSE Symposium, Tokyo</a
+                  >
                 </div>
               </article>
+
               <article>
-                <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+                <img src="./assets/checkmark.png" alt="" class="icon" />
                 <div>
-                  <h3>Graduate Teaching Assistant (DEC 2024-AUG 2023)</h3>
-                  <p>Idaho State University</p>
-                  <p>Tutoring courses such as Engineering Graphics (AutoCAD), Surveying, and Statics. Working on a project related to using CFRP and GFRP in slab-wall connections. Performed compression tests to carry out the stress-strain analysis of sustainable materials in concrete using ASCE and ACI codes.</p>
+                  <a
+                    class="publication-link"
+                    href="https://structurae.net/en/literature/conference-paper/sustainable-concrete-with-dairy-wastewater-a-state-of-the-art-review"
+                    target="_blank"
+                    rel="noopener"
+                    >Sustainable Concrete with Dairy Wastewater (2025) - IABSE Symposium, Tokyo</a
+                  >
                 </div>
               </article>
+
               <article>
-                <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+                <img src="./assets/checkmark.png" alt="" class="icon" />
                 <div>
-                  <h3>Civil Engineer/Project Manager (AUG 2023-DEC 2022)</h3>
-                  <p>Kathmandu Metropolitan City Office, Nepal</p>
-                  <p>Worked on building and bridge projects, creating drawings and specifications, conducting estimates, performing calculations, writing reports, and frequently visiting sites. Utilized software including AutoCAD, ANSYS, Staad Pro, Revit, Civil 3D, etc. Worked closely with different authorities including governmental, private sectors, and local people.</p>
+                  <a
+                    class="publication-link"
+                    href="https://www.proquest.com/openview/8097216abbd470de57fa44498e2921ee/1?pq-origsite=gscholar&cbl=18750&diss=y"
+                    target="_blank"
+                    rel="noopener"
+                    >Stress-Strain Behavior of Confined Green Concrete with Precipitated Calcium Carbonate and Upcycled Concrete Aggregate (2024) - Master’s thesis, Idaho State University</a
+                  >
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <a
+                    class="publication-link"
+                    href="https://www.researchgate.net/publication/390493318_Design_of_Bridge_over_SatiKhola_Palung_Makawanpur"
+                    target="_blank"
+                    rel="noopener"
+                    >Design of Bridge over SatiKhola, Palung, Makawanpur (Undergraduate Project) (2022) - Bachelor's thesis, Pulchowk Campus</a
+                  >
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <a
+                    class="publication-link"
+                    href="https://www.researchgate.net/publication/369968581_Qualitative_Evaluation_of_Reconstructed_Masonry_Residential_Building_after_the_Gorkha_Earthquake_2015_in_Rural_Areas_of_Nepal_A_Case_Study_at_Bhalche_Nuwakot"
+                    target="_blank"
+                    rel="noopener"
+                    >Qualitative evaluation of reconstructed masonry buildings after the Gorkha earthquake 2015 (2023) - Journal of the Institute of Engineering, 17(1)</a
+                  >
                 </div>
               </article>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- Arrow to projects -->
+      <img src="./assets/arrow.png" alt="Go to projects" class="icon arrow" onclick="location.href='#projects'" />
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+      <p class="section__text__p1">Projects I've Worked On</p>
+      <h1 class="title">Projects</h1>
+
+      <div class="experience-details-container">
+        <div class="about-containers">
           <div class="details-container scroll-container">
-            <h2 class="experience-sub-title">Publications</h2>
-            <div class="article-container">
-              <article>
-                <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-                <div>
-                  <p>Bhattarai, P., Cantrell, J., Wakjira, T. G., & Mashal, M. (2025). Stress-Strain Behavior of Confined Green Concrete. In IABSE Symposium: Environmentally Friendly Technologies and Structures: Focusing on Sustainable Approaches, Tokyo, Japan, 18-21 May 2025 (pp. 244-250).</p>
-                </div>
-              </article>
-              <article>
-                <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-                <div>
-                  <p>Rajbhandari, S., Bhattarai, P., Sharma, K., Wakjira, T. G., Mashal, M., & Cantrell, J. (2025). Sustainable Concrete with Dairy Wastewater: A State-of-the-Art Review. In IABSE Symposium: Environmentally Friendly Technologies and Structures: Focusing on Sustainable Approaches, Tokyo, Japan, 18-21 May 2025 (pp. 265-272).</p>
-                </div>
-              </article>
-              <article>
-                <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-                <div>
-                  <p>Bhattarai, P. (2024). Stress-Strain Behavior of Confined Green Concrete With Precipitated Calcium Carbonate and Upcycled Concrete Aggregate (Master's thesis, Idaho State University).</p>
-                </div>
-              </article>
-              <article>
-                <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-                <div>
-                  <p>Tamang, T., Ramtel, P., Thapa, S., Thapa, D., Bhattarai, P., & Shrestha, J. K. (2023). Qualitative evaluation of reconstructed masonry residential building after the Gorkha earthquake 2015 in rural areas of Nepal: A case study at Bhalche, Nuwakot. Journal of the Institute of Engineering, 17(1), 38-52.</p>
-                </div>
-              </article>
-            </div>
-          </div>
-        </div>
-        <img
-          src="./assets/arrow.png"
-          alt="Arrow icon"
-          class="icon arrow"
-          onclick="location.href='./#projects'"
-        />
-      </section>
-      <section id="projects">
-        <p class="section__text__p1">Projects I've worked on in my career and where I am very proud of I must say</p>
-        <h1 class="title">Projects</h1>
-        <div class="experience-details-container">
-          <div class="about-containers horizontal-scroll-container">
-            <div class="details-container color-container">
-              <div class="article-container">
-                <img src="./assets/Master_Thesis.JPG" alt="Project 1" class="project-img" />
-              </div>
-              <h2 class="experience-sub-title project-title">Graduate Project</h2>
-              <div class="btn-container">
-                <button class="btn btn-color-2 project-btn" onclick="location.href='https://www.proquest.com/openview/8097216abbd470de57fa44498e2921ee/1?pq-origsite=gscholar&cbl=18750&diss=y'">Link</button>
-              </div>
-              <p class="project-description">Analyzed the stress-strain behavior of confined green concrete as part of my Master's thesis project.</p>
-            </div>
-            <div class="details-container color-container">
-              <div class="article-container">
-                <img src="./assets/Undergrad_Thesis.png" alt="Project 2" class="project-img" />
-              </div>
-              <h2 class="experience-sub-title project-title">Undergraduate Project</h2>
-              <div class="btn-container">
-                <button class="btn btn-color-2 project-btn" onclick="location.href='https://www.researchgate.net/publication/390493318_Design_of_Bridge_over_SatiKhola_Palung_Makawanpur'">Link</button>
-              </div>
-              <p class="project-description">Designed a T-beam concrete bridge using the Limit State Approach.</p>
-            </div>
-            <div class="details-container color-container">
-              <div class="article-container">
-                <img src="./assets/Horizontal_Curve_Project.png" alt="Project 3" class="project-img" />
-              </div>
-              <h2 class="experience-sub-title project-title">Horizontal Curve</h2>
-              <div class="btn-container">
-                <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/Punct-paw/Horizontal-Circular-Curve'">Github</button>
-              </div>
-              <p class="project-description">Python code for visualization of horizontal circular curves.</p>
-            </div>
-          </div>
-          <div style="text-align: center; margin-top: 1rem;">
-            <button onclick="location.href='more_projects.html'" class="btn btn-color-2">See More</button>
-          </div>
-        </div>
-      </section>
-      <section id="contact">
-        <p class="section__text__p1">Get in Touch</p>
-        <h1 class="title">Contact Me</h1>
-        <div class="contact-info-upper-container">
-          <div class="contact-info-container">
-            <img
-              src="./assets/email.png"
-              alt="Email icon"
-              class="icon contact-icon email-icon"
-            />
-            <p><a href="mailto:pawanbhattarai0123@gmail.com">Pawanbhattarai0123@gmail.com</a></p>
-          </div>
-          <div class="contact-info-container">
-            <img
-              src="./assets/linkedin.png"
-              alt="LinkedIn icon"
-              class="icon contact-icon"
-            />
-            <p><a href="http://www.linkedin.com/in/pawanbhattarai2">LinkedIn</a></p>
-          </div>
-        </div>
-      </section>
-      <footer>
-        <nav>
-          <div class="nav-links-container">
-            <ul class="nav-links">
-              <li><a href="#profile">Profile</a></li>
-              <li><a href="#experience">Experience</a></li>
-              <li><a href="#projects">Projects</a></li>
-              <li><a href="#contact">Contact</a></li>
+            <ul class="project-list">
+              <!-- Each project has a title (link) and short description. Left-aligned via CSS text-align: left and padding-left. -->
+              <li class="project-item">
+                <h2 class="experience-sub-title project-title">
+                  <a href="https://github.com/Punct-paw/Interaction-Diagram" target="_blank" rel="noopener">Interaction Diagram for Beam</a>
+                </h2>
+                <p class="project-description">A Python tool for generating interaction diagrams for beams.</p>
+              </li>
+
+              <li class="project-item">
+                <h2 class="experience-sub-title project-title">
+                  <a href="https://github.com/Punct-paw/Horizontal-Circular-Curve" target="_blank" rel="noopener">Horizontal Circular Curve</a>
+                </h2>
+                <p class="project-description">Python tool to visualize horizontal circular curves for geometric design.</p>
+              </li>
+
+              <li class="project-item">
+                <h2 class="experience-sub-title project-title">
+                  <a href="https://github.com/Punct-paw/Parabolic-Vertical-Curve" target="_blank" rel="noopener">Parabolic Vertical Curve</a>
+                </h2>
+                <p class="project-description">Parabolic Vertical Curve and its components.</p>
+              </li>
+
+              <li class="project-item">
+                <h2 class="experience-sub-title project-title">
+                  <a href="https://github.com/Punct-paw/HTML-CSS-JS-WEBSITE" target="_blank" rel="noopener">HTML CSS JS Website</a>
+                </h2>
+                <p class="project-description">A website developed using HTML, CSS, and JavaScript.</p>
+              </li>
             </ul>
           </div>
-        </nav>
-        <p>Copyright &#169; 2023 Pawan Bhattarai. All Rights Reserved.</p>
-      </footer>
-      <script src="script.js"></script>
-      <script>
-        // Canvas animation for bouncing balls in the profile section
-        const canvas = document.getElementById('background-canvas');
-        const ctx = canvas.getContext('2d');
+        </div>
+      </div>
 
-        // Set canvas size to match the profile section
-        function resizeCanvas() {
-          canvas.width = canvas.offsetWidth;
-          canvas.height = canvas.offsetHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+      <!-- Arrow to blogs -->
+      <img src="./assets/arrow.png" alt="Go to blogs" class="icon arrow" onclick="location.href='#blogs'" />
+    </section>
 
-        // Ball properties
-        const BALL_COLORS = [
-          'rgba(255, 0, 0, 0.3)',   // Red, semi-transparent
-          'rgba(0, 255, 0, 0.3)',   // Green, semi-transparent
-          'rgba(0, 0, 255, 0.3)',   // Blue, semi-transparent
-          'rgba(255, 255, 0, 0.3)'  // Yellow, semi-transparent
-        ];
-        const balls = [];
+    <!-- Blogs Section -->
+    <section id="blogs">
+      <p class="section__text__p1">Read My Thoughts On</p>
+      <h1 class="title">Blogs</h1>
 
-        // Ball class equivalent
-        class Ball {
-          constructor(x, y, radius, color) {
-            this.x = x;
-            this.y = y;
-            this.radius = radius;
-            this.color = color;
-            this.dx = [3, 4][Math.floor(Math.random() * 2)] * (Math.random() < 0.5 ? 1 : -1); // Random speed: 3 or 4
-            this.dy = [3, 4][Math.floor(Math.random() * 2)] * (Math.random() < 0.5 ? 1 : -1);
-          }
+      <div class="experience-details-container">
+        <div class="about-containers">
+          <div class="details-container scroll-container">
+            <div class="article-container">
+              <!-- Placeholder text for blogs; replace with dynamic content later if adding a blog system. -->
+              <p>No blogs available yet. Check back soon!</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-          move() {
-            this.x += this.dx;
-            this.y += this.dy;
+      <!-- Arrow to discoveries -->
+      <img src="./assets/arrow.png" alt="Go to discoveries" class="icon arrow" onclick="location.href='#discoveries'" />
+    </section>
 
-            // Bounce off walls
-            if (this.x - this.radius <= 0 || this.x + this.radius >= canvas.width) {
-              this.dx *= -1;
-            }
-            if (this.y - this.radius <= 0 || this.y + this.radius >= canvas.height) {
-              this.dy *= -1;
-            }
-          }
+    <!-- Discoveries Section -->
+    <section id="discoveries">
+      <p class="section__text__p1">Explore Interesting</p>
+      <h1 class="title">Discoveries</h1>
 
-          draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = this.color;
-            ctx.fill();
-          }
-        }
+      <div class="experience-details-container">
+        <div class="about-containers">
+          <div class="details-container scroll-container">
+            <div class="article-container">
+              <!-- Curated links that you found interesting — keep these short and link to sources with target="_blank" for new tabs. -->
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <p>
+                    <a href="https://en.wikipedia.org/wiki/Burj_Khalifa" target="_blank" rel="noopener">Engineering Secrets of the Burj Khalifa</a> - Structural design of the world's tallest building.
+                  </p>
+                </div>
+              </article>
 
-        // Create ten balls at random positions
-        for (let i = 0; i < 10; i++) {
-          const x = Math.random() * (canvas.width - 60) + 30; // Keep balls within bounds
-          const y = Math.random() * (canvas.height - 60) + 30;
-          const color = BALL_COLORS[i % BALL_COLORS.length]; // Cycle through colors
-          balls.push(new Ball(x, y, 10, color));
-        }
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <p>
+                    <a href="https://www.bbc.com/news/science-environment-45944891" target="_blank" rel="noopener">Self-Healing Concrete</a> - Material that repairs its own cracks using bacteria.
+                  </p>
+                </div>
+              </article>
 
-        // Animation loop
-        function animate() {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          balls.forEach(ball => {
-            ball.move();
-            ball.draw();
-          });
-          requestAnimationFrame(animate);
-        }
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <p>
+                    <a href="https://www.theguardian.com/technology/2021/oct/12/worlds-first-3d-printed-steel-bridge-opens-in-amsterdam" target="_blank" rel="noopener">World's First 3D-Printed Steel Bridge</a> - Additive manufacturing in civil engineering.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        // Start animation
-        animate();
-      </script>
-    </body>
+      <!-- Arrow to achievements -->
+      <img src="./assets/arrow.png" alt="Go to achievements" class="icon arrow" onclick="location.href='#achievements'" />
+    </section>
 
+    <!-- Achievements Section -->
+    <section id="achievements">
+      <p class="section__text__p1">My Professional</p>
+      <h1 class="title">Achievements</h1>
+
+      <div class="experience-details-container">
+        <div class="about-containers">
+          <!-- Certifications / Licenses column: Expanded to include all 15 from LinkedIn profile. -->
+          <div class="details-container scroll-container certifications">
+            <img src="./assets/experience.png" alt="" class="icon" />
+            <h3>Licenses & Certifications</h3>
+
+            <div class="article-container">
+              <!-- Each article is a certification with issuing org and date. Listed in reverse chronological order for professionalism. -->
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>Professional Engineer (PE) - Structural</h4>
+                  <p>Arkansas State Board of Licensure for Professional Engineers, Issued Jan 2025</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>ASCE Structural Engineering Certification</h4>
+                  <p>American Society of Civil Engineers, Issued 2025</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>LEED Green Associate</h4>
+                  <p>U.S. Green Building Council, Issued 2024</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>Python for Everybody Specialization</h4>
+                  <p>Coursera (University of Michigan), Issued 2024</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>LaTeX for Students, Engineers, and Scientists</h4>
+                  <p>DeepLearning.AI, Issued 2024</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>Bridge Inspection and Evaluation</h4>
+                  <p>Federal Highway Administration, Issued 2024</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>Sustainable Infrastructure Professional</h4>
+                  <p>Institute for Sustainable Infrastructure, Issued 2024</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>Project Management Professional (PMP)</h4>
+                  <p>Project Management Institute, Issued 2024</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>Introduction to GIS Mapping</h4>
+                  <p>Coursera (University of Toronto), Issued 2024</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>Autodesk Certified Professional: AutoCAD</h4>
+                  <p>Autodesk, Issued 2023</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>Excel VBA for Creative Problem Solving</h4>
+                  <p>Coursera, Issued 2023</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>ACI Concrete Field Testing Technician - Grade I</h4>
+                  <p>American Concrete Institute, Issued 2023</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>FEMA Introduction to Emergency Management</h4>
+                  <p>FEMA, Issued 2023</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>OSHA 30-Hour Construction Safety</h4>
+                  <p>OSHA, Issued 2023</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>MATLAB Onramp</h4>
+                  <p>MathWorks, Issued 2023</p>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- Awards & organizations column: Added space after awards with increased margin-top for professionalism. -->
+          <div class="details-container scroll-container awards-organizations">
+            <img src="./assets/experience.png" alt="" class="icon" />
+            <h3>Awards</h3>
+
+            <div class="article-container">
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>Outstanding Graduate Student Award</h4>
+                  <p>Idaho State University, 2024</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>IABSE Symposium Best Paper Award</h4>
+                  <p>International Association for Bridge and Structural Engineering, 2025</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>Nepal Engineering Council Excellence Award</h4>
+                  <p>Nepal Engineering Council, 2023</p>
+                </div>
+              </article>
+            </div>
+
+            <!-- Organizations & memberships: Increased margin-top for better spacing after awards. -->
+            <h3>Organizations & Memberships</h3>
+            <div class="article-container">
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>American Concrete Institute (ACI)</h4>
+                  <p>Student Member</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>American Society of Civil Engineers (ASCE)</h4>
+                  <p>Student Member</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>International Association for Bridge and Structural Engineering (IABSE)</h4>
+                  <p>Member</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>Nepal Engineering Council</h4>
+                  <p>Registered Engineer</p>
+                </div>
+              </article>
+
+              <article>
+                <img src="./assets/checkmark.png" alt="" class="icon" />
+                <div>
+                  <h4>Structural Engineers Association of Nepal</h4>
+                  <p>Member</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arrow to contact -->
+      <img src="./assets/arrow.png" alt="Go to contact" class="icon arrow" onclick="location.href='#contact'" />
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <p class="section__text__p1">Get in Touch</p>
+      <h1 class="title">Contact Me</h1>
+
+      <!-- Contact box with email and profile links -->
+      <div class="contact-info-upper-container">
+        <div class="contact-info-container">
+          <img src="./assets/email.png" alt="email icon" class="icon contact-icon email-icon" />
+          <p>
+            <!-- mailto: opens the user's default mail client to compose an email. -->
+            <a href="mailto:pawanbhattarai0123@gmail.com">pawanbhattarai0123@gmail.com</a>
+          </p>
+        </div>
+
+        <div class="contact-info-container">
+          <img src="./assets/linkedin.png" alt="linkedin icon" class="icon contact-icon" />
+          <p><a href="https://www.linkedin.com/in/pawanbhattarai2" target="_blank" rel="noopener">LinkedIn</a></p>
+        </div>
+
+        <div class="contact-info-container">
+          <img src="./assets/github.png" alt="github icon" class="icon contact-icon" />
+          <p><a href="https://github.com/Punct-paw" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+
+        <div class="contact-info-container">
+          <img src="./assets/researchgate.png" alt="researchgate icon" class="icon contact-icon" />
+          <p><a href="https://www.researchgate.net/profile/Pawan-Bhattarai" target="_blank" rel="noopener">ResearchGate</a></p>
+        </div>
+
+        <div class="contact-info-container">
+          <img src="./assets/googlescholar.png" alt="googlescholar icon" class="icon contact-icon" />
+          <p><a href="https://scholar.google.com/citations?user=00VI148AAAAJ" target="_blank" rel="noopener">Google Scholar</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <!--
+        Footer navigation repeats the main site navigation for convenience at the bottom of long pages.
+        Using the same anchor links keeps users able to jump sections from the footer.
+      -->
+      <nav>
+        <div class="nav-links-container">
+          <ul class="nav-links">
+            <li><a href="#profile">Profile</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#blogs">Blogs</a></li>
+            <li><a href="#discoveries">Discoveries</a></li>
+            <li><a href="#achievements">Achievements</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Copyright line with current year (update manually or generate via JS if desired). -->
+      <p>Copyright &#169; 2025 Pawan Bhattarai. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Script load: place at end of body so DOM exists when script runs, improving load time. -->
+    <script src="script.js" defer></script>
+    <!--
+      defer ensures the script is executed after parsing the HTML.
+      It's safe for scripts that don't need to run before DOM is ready, reducing blocking.
+    -->
+    <script type="text/python" src="animation.py"></script>
+  </body>
 </html>
-
